@@ -15,16 +15,16 @@
                             <span class="input-group-text bg-success text-white" id="basic-addon1"><i
                                     class="ti-user"></i></span>
                         </div>
-                        <input type="text" class="form-control form-control-lg" placeholder="Username"
-                               aria-label="Username" aria-describedby="basic-addon1" required="" name="email">
+                        <input type="email" class="form-control form-control-lg" placeholder="Email"
+                               aria-label="Email" aria-describedby="basic-addon1" required="required" name="email">
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-warning text-white" id="basic-addon2"><i
                                     class="ti-pencil"></i></span>
                         </div>
-                        <input type="text" class="form-control form-control-lg" placeholder="Password"
-                               aria-label="Password" aria-describedby="basic-addon1" required="" name="password">
+                        <input type="password" class="form-control form-control-lg" placeholder="Password"
+                               aria-label="Password" aria-describedby="basic-addon2" required="required" name="password">
                     </div>
                     <div class="form-check">
                         <input class="form-check-input mt-1" type="checkbox" value="1" id="remember-me">
