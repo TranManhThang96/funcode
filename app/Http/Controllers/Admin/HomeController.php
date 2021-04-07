@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.dashboard', compact('page_title', 'page_description'));
+        return view('admin.pages.dashboard');
     }
 
     /**

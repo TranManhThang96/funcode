@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::domain(config('app.subdomain_admin'))->name('admin.')->group(function () {
-    Route::get('/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('auth.login.get');
-    Route::post('/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('auth.login.post');
-    Route::post('/logout', [\App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('auth.logout');
-    Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index']);
+    Route::get('/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('login.get');
+    Route::post('/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('login.post');
+    Route::post('/logout', [\App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('logout');
+    Route::middleware('admin.auth')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index']);
+    });
 });

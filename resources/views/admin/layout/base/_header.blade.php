@@ -178,7 +178,7 @@
                         <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i>
                             Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <form method="POST" action="{{route('admin.auth.logout')}}" id="logout">
+                        <form method="POST" action="{{route('admin.logout')}}" id="logout">
                             @csrf
                             <a class="dropdown-item" href="javascript:;"
                                onclick="document.getElementById('logout').submit()">
