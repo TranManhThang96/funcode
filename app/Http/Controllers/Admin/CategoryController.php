@@ -4,38 +4,34 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Services\CategoryService;
 
-class AuthController extends Controller
+class CategoryController extends Controller
 {
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
-     */
-    public function login(Request $request)
+    protected $categoryService;
+    public function __construct(CategoryService $categoryService)
     {
-        if ($request->method() === 'POST') {
-            $credentials = $request->only('email', 'password');
-            if (Auth::guard('admin')->attempt($credentials, (bool)$request->remember)) {
-                toastr()->success('1','Login successfully!');
-                return redirect()->intended();;
-            }
-        } else {
-            if (Auth::guard('admin')->check()) {
-                return redirect()->intended();
-            }
-        }
-        $page_title = 'Login';
-        return view('admin.pages.auth.login', compact('page_title'));
+        $this->categoryService = $categoryService;
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function logout()
+    public function index()
     {
-        Auth::guard('admin')->logout();
-        return redirect()->intended('/login');
+        dd($this->categoryService->index());
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**

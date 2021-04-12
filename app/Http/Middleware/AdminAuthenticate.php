@@ -16,7 +16,7 @@ class AdminAuthenticate
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth('portal')->check()) {
+        if (!auth('admin')->check()) {
             return redirect('login');
         }
         return $next($request);
