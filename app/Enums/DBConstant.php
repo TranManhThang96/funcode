@@ -7,5 +7,6 @@ use App\Enums\BaseEnum;
  */
 class DBConstant extends BaseEnum
 {
-    const TEST = 'TEST';
+    // [categories]
+    const NO_PARENT = 0;
 }

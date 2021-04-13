@@ -21,7 +21,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        dd($this->categoryService->index());
+        return view('admin.pages.categories.index');
     }
 
     /**

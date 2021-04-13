@@ -15,6 +15,8 @@
     <link href="{{asset('assets/libs/flot/css/float-chart.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{asset('dist/css/style.min.css')}}" rel="stylesheet">
+    <!-- App CSS -->
+    <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <!-- Toast CSS -->
     <link href="{{asset('assets/libs/toastr/build/toastr.min.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -115,7 +117,7 @@
 <script src="{{asset('assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js')}}"></script>
 <script src="{{asset('dist/js/pages/chart/chart-page-init.js')}}"></script>
 <script src="{{asset('assets/libs/toastr/build/toastr.min.js')}}"></script>
-
+@yield('script')
 </body>
 @toastr_render
 </html>
