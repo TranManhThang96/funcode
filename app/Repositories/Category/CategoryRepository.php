@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Repositories\Category;
 
 use App\Enums\Constant;
-use App\Repositories\RepostioryAbstract;
+use App\Repositories\RepositoryAbstract;
 use Carbon\Carbon;
 use App\Enums\DBConstant;
 
-class CategoryRepository extends RepostioryAbstract implements CategoryRepositoryInterface
+class CategoryRepository extends RepositoryAbstract implements CategoryRepositoryInterface
 {
     /**
      * get model
