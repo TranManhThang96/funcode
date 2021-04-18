@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories;
 
-abstract class RepostioryAbstract implements RepositoryInterface
+abstract class RepositoryAbstract implements RepositoryInterface
 {
     /**
      * @var \Illuminate\Database\Eloquent\Model
