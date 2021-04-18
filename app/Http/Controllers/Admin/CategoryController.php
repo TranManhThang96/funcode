@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\Constant;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CategoryRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\CategoryService;
+use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
+use Exception;
+use App\Traits\CollectionPagination;
 
 class CategoryController extends Controller
 {
     protected $categoryService;
+
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
@@ -17,39 +26,86 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.pages.categories.index');
+        $categories = collect([]);
+        $allCategories = $this->categoryService->index();
+        showCategories($allCategories, $categories);
+        $categories = (new CollectionPagination($categories))->paginate(Constant::DEFAULT_PER_PAGE);
+        return view('admin.pages.categories.index', compact('categories'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function search(Request $request)
+    {
+        $categories = collect([]);
+        $allCategories = $this->categoryService->getAll();
+        $q = $request->q ?? '';
+        $sort_by = $request->sort_by ?? 'id';
+        $order_by = $request->order_by ? strtoupper($request->order_by) : Constant::SORT_BY_DESC;
+        if ($order_by === Constant::SORT_BY_ASC) {
+            $allCategories = $allCategories->sortBy($sort_by);
+        } else {
+            $allCategories = $allCategories->sortByDesc($sort_by);
+        }
+        showCategories($allCategories, $categories);
+        if ($q) {
+            $categories = $categories->filter(function ($item) use ($q) {
+                return preg_match("/$q/", $item['name']);
+            });
+        }
+
+        $categories = (new CollectionPagination($categories))->paginate((int)$request->per_page ?? Constant::DEFAULT_PER_PAGE);
+        $view = view('admin.pages.categories.list', compact('categories'))->render();
+        return $this->apiSendSuccess($view, Response::HTTP_OK);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create()
     {
-        //
+        $categories = [];
+        $allCategories = $this->categoryService->index();
+        showCategories($allCategories, $categories);
+        $view = view('admin.pages.categories.add', compact('categories'))->render();
+        return $this->apiSendSuccess($view, Response::HTTP_OK);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CategoryRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $params = $request->only('name', 'parent_id');
+        $params['name'] = ucwords(strtolower($params['name']));
+        // auto create slug by name.
+        $slug = Str::slug($params['name'], '-');
+        // get the number of slugs that already exist.
+        $countSlug = $this->categoryService->getCountSlug($slug);
+        $params['slug'] = $countSlug > 0 ? $slug . '-' . ($countSlug + 1) : $slug;
+        $result = $this->categoryService->store($params);
+        if ($result) {
+            return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');
+        }
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
      */
     public function show($id)
     {
@@ -59,30 +115,46 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit($id)
     {
-        //
+        $categories = [];
+        $allCategories = $this->categoryService->index();
+        showCategories($allCategories, $categories);
+        $category = $this->categoryService->find($id);
+        $view = view('admin.pages.categories.edit', compact('categories', 'category'))->render();
+        return $this->apiSendSuccess($view, Response::HTTP_OK);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        $params = $request->only('id', 'name', 'parent_id');
+        $params['name'] = ucwords(strtolower($params['name']));
+        // auto create slug by name.
+        $slug = Str::slug($params['name'], '-');
+        // get the number of slugs that already exist.
+        $countSlug = $this->categoryService->getCountSlug($slug, $id);
+        $params['slug'] = $countSlug > 0 ? $slug . '-' . ($countSlug + 1) : $slug;
+        $result = $this->categoryService->update($id, $params);
+        if ($result) {
+            return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');
+        }
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

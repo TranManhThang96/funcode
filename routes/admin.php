@@ -20,5 +20,6 @@ Route::domain(config('app.subdomain_admin'))->name('admin.')->group(function () 
     Route::middleware('admin.auth')->group(function () {
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index']);
         Route::resource('/categories', CategoryController::class);
+        Route::get('/search', [\App\Http\Controllers\Admin\CategoryController::class, 'search'])->name('categories.search');
     });
 });

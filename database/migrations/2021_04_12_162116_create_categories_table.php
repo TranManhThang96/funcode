@@ -19,7 +19,6 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->string('icon', 500)->nullable()->comment('icon');
             $table->integer('parent_id')->default(0)->comment('0: no parent');
-            $table->text('description')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->softDeletes();

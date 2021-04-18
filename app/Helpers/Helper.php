@@ -3,7 +3,7 @@
 use Illuminate\Support\Str;
 
 if (!function_exists('showCategories')) {
-    function showCategories($categories, &$result = [], $parent_id = 0, $char = '')
+    function showCategories($categories, &$result = [], $parent_id = \App\Enums\DBConstant::NO_PARENT, $char = '')
     {
         foreach ($categories as $key => $item) {
             // Nếu là chuyên mục con thì hiển thị
@@ -12,9 +12,9 @@ if (!function_exists('showCategories')) {
                 $result[] = array_merge(
                     $item->toArray(),
                     [
-                        'value' => $item->id,
-                        'fullPath' => $char . Str::slug($item->name),
-                        'label' => str_pad($item->name, strlen($item->name) + ($countSymbol - 1) * 4, "--- ", STR_PAD_LEFT)
+                        'full_path' => $char . Str::slug($item->name),
+                        'label' => str_pad($item->name, strlen($item->name) + ($countSymbol - 1) * 4, "--- ", STR_PAD_LEFT),
+                        'level' => $countSymbol,
                     ]
                 );
 
@@ -22,7 +22,7 @@ if (!function_exists('showCategories')) {
                 unset($categories[$key]);
 
                 // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-                showCategories($categories, $result, $item['id'], $char . $item->name . ' / ');
+                showCategories($categories, $result, $item['id'], $char . Str::slug($item->name) . ' / ');
             }
         }
     }
@@ -64,5 +64,13 @@ if (!function_exists('renderBreadcrumb')) {
             echo '<li class="breadcrumb-item active" aria-current="page">' . $pageTitle . '</li></ol></nav></div>';
         }
         echo '</div></div></div>';
+    }
+}
+
+if (!function_exists('renderCategoryName')) {
+    function renderCategoryName($name, $level = \App\Enums\Constant::LEVEL_FIRST)
+    {
+        $distance = (int)($level - 1) * 30;
+        echo '<div class="px-1 py-1 text-white float-right" style="background-color: ' . \App\Enums\Constant::LEVEL_COLORS[$level] . '; width: calc(100% - ' . $distance . 'px)">' . $name . '</div>';
     }
 }

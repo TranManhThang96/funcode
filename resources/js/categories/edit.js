@@ -1,45 +1,44 @@
 require('../master');
 $(document).ready(function () {
-    let modalAddCategory = $('#modal-add-category');
-
+    let modalEditCategory = $('#modal-edit-category');
     $('#select-category-parent').select2();
 
     // handle when btn add category click
-    $('#btn-add-category').on('click', function () {
-        $('.page-loading').fadeIn();
+    $(document).on('click', '.btn-edit-category',function () {
+        let categoryId = $(this).data('category-id');
         $.ajax({
-            url: '/categories/create',
+            url: `/categories/${categoryId}/edit`,
             type: 'get',
+            loading: true,
             success: function (response) {
-                $('.page-loading').fadeOut();
-                modalAddCategory.html(response.data).modal('show');
+                modalEditCategory.html(response.data).modal('show');
                 $('#select-category-parent').select2({dropdownParent: '.modal-content'});
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                $('.page-loading').fadeOut();
             }
         });
     })
 
     // handle when save category click
-    $(document).on('click','#add-category', function () {
+    $(document).on('click','#edit-category', function () {
         $('.page-loading').fadeIn();
+        let categoryId = $('#form-edit-category #category-id').val();
         $.ajax({
-            url: '/categories',
-            type: 'post',
-            data: $('#form-add-category').serialize(),
+            url: `/categories/${categoryId}`,
+            type: 'put',
+            data: $('#form-edit-category').serialize(),
             success: function (response) {
                 $('.page-loading').fadeOut();
-                modalAddCategory.modal('hide');
+                modalEditCategory.modal('hide');
                 $('#frm-search input[name="page"]').val(1);
                 getLists();
-                toastr.success('Thêm category thành công!', 'Thông báo')
+                toastr.success('Update category thành công!', 'Thông báo')
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 $('.page-loading').fadeOut();
                 if (jqXHR.status === 422) {
                     let errors = jqXHR.responseJSON.errors;
-                    setError(errors, '#form-add-category');
+                    setError(errors, '#form-edit-category');
                 } else {
                     toastr.error('Thêm category thất bại!', 'Lỗi')
                 }

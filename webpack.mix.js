@@ -15,4 +15,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.sass('resources/sass/app.scss', 'public/css');
 
+// [categories]
+mix.js('resources/js/categories/index', 'public/js/categories');
 mix.js('resources/js/categories/add', 'public/js/categories');
+mix.js('resources/js/categories/edit', 'public/js/categories');
