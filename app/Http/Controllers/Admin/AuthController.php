@@ -17,7 +17,7 @@ class AuthController extends Controller
         if ($request->method() === 'POST') {
             $credentials = $request->only('email', 'password');
             if (Auth::guard('admin')->attempt($credentials, (bool)$request->remember)) {
-                toastr()->success('1','Login successfully!');
+                toastr()->success('Login successfully!','Thông báo');
                 return redirect()->intended();;
             }
         } else {

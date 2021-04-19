@@ -19,7 +19,7 @@
                 <div class="form-group row">
                     <label for="select-category-parent" class="col-sm-3 col-form-label">Parent</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select-2 mr-sm-2" id="select-category-parent" name="parent_id">
+                        <select class="custom-select custom-select-2 mr-sm-2 select-category-parent" name="parent_id">
                             <option selected value="{{\App\Enums\DBConstant::NO_PARENT}}">No Parent</option>
                             @if(isset($categories))
                                 @foreach($categories as $category)

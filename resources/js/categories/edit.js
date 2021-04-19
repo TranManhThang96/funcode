@@ -1,7 +1,7 @@
 require('../master');
 $(document).ready(function () {
     let modalEditCategory = $('#modal-edit-category');
-    $('#select-category-parent').select2();
+    let modalAddCategory = $('#modal-add-category');
 
     // handle when btn add category click
     $(document).on('click', '.btn-edit-category',function () {
@@ -12,7 +12,8 @@ $(document).ready(function () {
             loading: true,
             success: function (response) {
                 modalEditCategory.html(response.data).modal('show');
-                $('#select-category-parent').select2({dropdownParent: '.modal-content'});
+                modalAddCategory.empty();
+                $('.select-category-parent').select2({dropdownParent: '.modal-content'});
             },
             error: function(jqXHR, textStatus, errorThrown) {
             }

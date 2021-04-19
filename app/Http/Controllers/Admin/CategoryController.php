@@ -57,7 +57,8 @@ class CategoryController extends Controller
         showCategories($allCategories, $categories);
         if ($q) {
             $categories = $categories->filter(function ($item) use ($q) {
-                return preg_match("/$q/", $item['name']);
+                $q = strtolower($q);
+                return preg_match("/$q/", strtolower($item['name']));
             });
         }
 
