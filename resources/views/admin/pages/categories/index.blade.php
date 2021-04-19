@@ -41,10 +41,10 @@
             </form>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row mt-5">
         <div class="col-12">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body p-0">
                     <div class="table-responsive" id="data-table">
                         @include('admin.pages.categories.list')
                     </div>

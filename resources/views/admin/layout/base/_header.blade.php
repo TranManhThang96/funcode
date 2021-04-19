@@ -12,14 +12,14 @@
                 <b class="logo-icon p-l-10">
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                     <!-- Dark Logo icon -->
-                    <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo"/>
+                    <img src="{{asset('assets/images/logo-icon.png')}}" alt="homepage" class="light-logo"/>
 
                 </b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
                 <span class="logo-text">
                              <!-- dark Logo text -->
-                             <img src="assets/images/logo-text.png" alt="homepage" class="light-logo"/>
+                             <img src="{{asset('assets/images/logo-text.png')}}" alt="homepage" class="light-logo"/>
 
                         </span>
                 <!-- Logo icon -->
@@ -166,7 +166,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                            src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            src="{{asset('assets/images/users/1.jpg')}}" alt="user" class="rounded-circle" width="31"></a>
                     <div class="dropdown-menu dropdown-menu-right user-dd animated">
                         <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My
                             Profile</a>
