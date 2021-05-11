@@ -45,21 +45,21 @@ class CategoryController extends Controller
     public function search(Request $request)
     {
         $categories = collect([]);
-        $allCategories = $this->categoryService->getAll();
         $q = $request->q ?? '';
         $sort_by = $request->sort_by ?? 'id';
         $order_by = $request->order_by ? strtoupper($request->order_by) : Constant::SORT_BY_DESC;
-        if ($order_by === Constant::SORT_BY_ASC) {
-            $allCategories = $allCategories->sortBy($sort_by);
-        } else {
-            $allCategories = $allCategories->sortByDesc($sort_by);
-        }
+        $allCategories = $this->categoryService->getAll();
         showCategories($allCategories, $categories);
         if ($q) {
             $categories = $categories->filter(function ($item) use ($q) {
                 $q = strtolower($q);
                 return preg_match("/$q/", strtolower($item['name']));
             });
+        }
+        if ($order_by === Constant::SORT_BY_ASC) {
+            $categories = $categories->sortBy($sort_by);
+        } else {
+            $categories = $categories->sortByDesc($sort_by);
         }
 
         $categories = (new CollectionPagination($categories))->paginate((int)$request->per_page ?? Constant::DEFAULT_PER_PAGE);

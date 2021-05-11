@@ -26,6 +26,8 @@
     @yield('css')
     <!-- App CSS -->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
+    <script src="https://cdn.tiny.cloud/1/a58q79ehj0hhawonf9sxs4yp7crgi2dmuuwcrnqvpopdxxcr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
 </head>
 
 <body>
