@@ -1,0 +1,32 @@
+#articles-frm {
+  #articles-image {
+    width: 100%;
+    max-height: 250px;
+    border: 1px solid #eee;
+    cursor: pointer;
+    position: relative;
+
+    img {
+      width: 100%;
+      max-height: 250px;
+    }
+
+    #articles-image-remove {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      z-index: 100;
+
+      .mdi {
+        font-size: 20px;
+      }
+    }
+  }
+
+  #editor {
+    height: 500px;
+    max-height: 500px;
+  }
+}

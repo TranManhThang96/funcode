@@ -3,5 +3,7 @@
     "/js/categories/index.js": "/js/categories/index.js",
     "/js/categories/add.js": "/js/categories/add.js",
     "/js/categories/edit.js": "/js/categories/edit.js",
+    "/js/articles/add.js": "/js/articles/add.js",
+    "/css/articles/add.css": "/css/articles/add.css",
     "/css/app.css": "/css/app.css"
 }

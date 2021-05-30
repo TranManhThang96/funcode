@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::domain(config('app.subdomain_admin'))->name('admin.')->group(function () {
-    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'admin.auth']], function () {
-        \UniSharp\LaravelFilemanager\Lfm::routes();
-    });
-    \UniSharp\LaravelFilemanager\Lfm::routes();
+
     Route::get('/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('login.get');
     Route::post('/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('login.post');
     Route::post('/logout', [\App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('logout');
@@ -27,3 +24,5 @@ Route::domain(config('app.subdomain_admin'))->name('admin.')->group(function () 
         Route::resource('/articles', ArticleController::class);
     });
 });
+
+

@@ -21,8 +21,6 @@ class CreateArticlesTable extends Migration
             $table->string('excerpt')->nullable()->comment('short description');
             $table->text('content');
             $table->string('image')->nullable();
-            $table->integer('series_id')->nullable()->default(0);
-            $table->integer('series_order')->nullable()->default(0);
             $table->tinyInteger('status')->default(1)->comment('1:publish, 2:draft, 3:deleted, 4:pending');
             $table->tinyInteger('type')->default(1)->comment('1:article, 2:learn, 3:tips');
             $table->json('link_references')->nullable();

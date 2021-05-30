@@ -52,4 +52,15 @@ class Constant extends BaseEnum
     const SORT_BY_ASC = 'ASC';
     const SORT_BY_DESC = 'DESC';
 
+    // [articles status]
+    const ARTICLE_PUBLISH_LABEL = "Publish";
+    const ARTICLE_DRAFT_LABEL = "Draft";
+    const ARTICLE_DELETED_LABEL = "Deleted";
+    const ARTICLE_PENDING_LABEL = "Pending";
+
+    // [articles type]
+    const ARTICLE_LABEL = 'Article';
+    const LEARN_LABEL = 'Learn';
+    const TIP_LABEL = 'Tip';
+
 }
