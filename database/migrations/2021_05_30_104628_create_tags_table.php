@@ -17,6 +17,8 @@ class CreateTagsTable extends Migration
             $table->id();
             $table->string('name', 255);
             $table->string('slug')->unique();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

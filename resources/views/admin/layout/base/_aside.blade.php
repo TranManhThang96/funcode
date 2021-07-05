@@ -10,6 +10,7 @@
                     <ul aria-expanded="false" class="collapse  first-level">
                         <li class="sidebar-item"><a href="{{route('admin.categories.index')}}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu">{{__('admin_label.categories.aside')}}</span></a></li>
                         <li class="sidebar-item"><a href="{{route('admin.articles.index')}}" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> {{__('admin_label.articles.aside')}} </span></a></li>
+                        <li class="sidebar-item"><a href="{{route('admin.series.index')}}" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> {{__('admin_label.series.aside')}} </span></a></li>
                     </ul>
                 </li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="widgets.html" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Widgets</span></a></li>

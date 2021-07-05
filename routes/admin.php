@@ -22,6 +22,8 @@ Route::domain(config('app.subdomain_admin'))->name('admin.')->group(function () 
         Route::resource('/categories', CategoryController::class);
         Route::get('/search', [\App\Http\Controllers\Admin\CategoryController::class, 'search'])->name('categories.search');
         Route::resource('/articles', ArticleController::class);
+        Route::get('/series/search', [\App\Http\Controllers\Admin\SeriesController::class, 'search'])->name('series.search');
+        Route::resource('/series', SeriesController::class);
     });
 });
 

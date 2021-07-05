@@ -23,3 +23,9 @@ mix.js('resources/js/categories/edit', 'public/js/categories');
 // [articles]
 mix.js('resources/js/articles/add', 'public/js/articles');
 mix.sass('resources/sass/articles/add.scss', 'public/css/articles');
+
+// [series]
+mix.js('resources/js/series/index', 'public/js/series');
+mix.js('resources/js/series/add', 'public/js/series');
+mix.js('resources/js/series/edit', 'public/js/series');
+
