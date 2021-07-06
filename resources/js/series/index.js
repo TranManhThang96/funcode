@@ -19,14 +19,9 @@ $(document).ready(function () {
 	});
 
 	$(document).on('click', '.btn-delete-series', function () {
-    return modalConfirm(function (confirm) {
-      console.log('456');
-      if (confirm) {
-        console.log('ok')
-      } else {
-        console.log('no')
-      }
-    });
+    modalConfirm().then(function (confirm) {
+      console.log(confirm);
+    })
   })
 })
 

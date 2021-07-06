@@ -77,17 +77,21 @@ getLists = (url = 'search', successFunc = null, errorFunc = null) => {
 	});
 };
 
-modalConfirm = function (callback) {
+modalConfirm = function () {
   let modalConfirm = $('#modal-confirm');
   modalConfirm.modal('show');
-  console.log('123');
-  $('#modal-confirm-btn-ok').on('click', function () {
-    callback(true);
-    modalConfirm.modal('hide');
-  });
+  let btnConfirm = $('#modal-confirm-btn-ok');
+  let btnCancel = $('#modal-confirm-btn-cancel');
 
-  $('#modal-confirm-btn-cancel').on('click', function () {
-    callback(false);
-    modalConfirm.modal('hide');
-  });
+  return new Promise(function (resolve, reject) {
+    btnConfirm.off().on('click', function () {
+      modalConfirm.modal('hide');
+      resolve(true);
+    });
+
+    btnCancel.off().on('click', function () {
+      modalConfirm.modal('hide');
+      resolve(false);
+    });
+  })
 };
