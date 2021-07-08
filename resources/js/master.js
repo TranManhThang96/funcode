@@ -77,11 +77,32 @@ getLists = (url = 'search', successFunc = null, errorFunc = null) => {
 	});
 };
 
-modalConfirm = function () {
+modalConfirm = function (title = 'Confirm', body = 'Are you sure?', titleCustom = null, bodyCustom = null) {
   let modalConfirm = $('#modal-confirm');
   modalConfirm.modal('show');
   let btnConfirm = $('#modal-confirm-btn-ok');
   let btnCancel = $('#modal-confirm-btn-cancel');
+  
+  //set title
+  if (titleCustom) {
+    $('#modal-confirm .modal-header').empty();
+    $('#modal-confirm .modal-header').append(titleCustom);
+    $('#modal-confirm .modal-header').append(
+      `<button type="button" class="close 1" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+      </button>`
+    );
+  } else {
+    $('#modal-confirm .modal-header .modal-title').text(title);
+  }
+
+  //set body
+  if (bodyCustom) {
+    $('#modal-confirm .modal-body').empty();
+    $('#modal-confirm .modal-body').append(bodyCustom);
+  } else {
+    $('#modal-confirm .modal-body p').text(body);
+  }
 
   return new Promise(function (resolve, reject) {
     btnConfirm.off().on('click', function () {
