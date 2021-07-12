@@ -123,12 +123,17 @@ class SeriesController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * https://www.restapitutorial.com/lessons/httpmethods.html.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $isDeleted = $this->seriesService->delete($id);
+        if ($isDeleted) {
+            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, 'kk');
+        }
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
     }
 }

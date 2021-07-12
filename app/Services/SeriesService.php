@@ -40,4 +40,9 @@ class SeriesService extends BaseService
     {
         return $this->seriesRepository->update($id, $attributes);
     }
+
+    public function delete($id)
+    {
+        return $this->seriesRepository->delete($id);
+    }
 }
