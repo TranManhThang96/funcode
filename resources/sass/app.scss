@@ -102,4 +102,38 @@
 }
 
 
+.thead--row {
+  .sorting {
+    cursor: pointer;
+    position: relative;
+    &::before, &::after {
+      position: absolute;
+      bottom: 0.9em;
+      display: block;
+      opacity: 0.3;
+      box-sizing: border-box;
+    }
+    &::before {
+      right: 1em;
+      content: "\2191";
+    }
+    &::after {
+      right: 0.5em;
+      content: "\2193";
+    }
+  }
+  .sorting--asc {
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  .sorting--desc {
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+
 

@@ -18,6 +18,6 @@ class Series extends Model
         'name',
         'slug',
         'created_by',
-        'updated_by'
+        'updated_by',
     ];
 }

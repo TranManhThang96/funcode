@@ -35,7 +35,7 @@
                     <input type="text" class="form-control" name="q" placeholder=""/>
                 </div>
                 <input type="hidden" name="sort_by" value=""/>
-                <input type="hidden" name="order_by" value/>
+                <input type="hidden" name="order_by" value=""/>
                 <input type="hidden" name="per_page" value="{{\App\Enums\Constant::DEFAULT_PER_PAGE}}"/>
                 <input type="hidden" name="page" value="1"/>
                 <button class="btn btn-primary mb-2" id="btn-search">Search</button>
@@ -70,4 +70,8 @@
     <script type="text/javascript" src="{{asset('js/series/index.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/series/add.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/series/edit.js')}}"></script>
+@endsection
+
+@section('css')
+    <link href="{{asset('css/series/index.css')}}" rel="stylesheet" />
 @endsection

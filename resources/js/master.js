@@ -1,3 +1,13 @@
+variableDefined = () => {
+  return {
+    SORTING_ASC_CLASS: 'sorting--asc',
+    SORTING_DESC_CLASS: 'sorting--desc',
+    ORDER_BY_ASC: 'asc',
+    ORDER_BY_DESC: 'desc',
+  }
+}
+
+
 /**
  * reset errors.
  */
@@ -82,7 +92,7 @@ modalConfirm = function (title = 'Confirm', body = 'Are you sure?', titleCustom 
   modalConfirm.modal('show');
   let btnConfirm = $('#modal-confirm-btn-ok');
   let btnCancel = $('#modal-confirm-btn-cancel');
-  
+
   //set title
   if (titleCustom) {
     $('#modal-confirm .modal-header').empty();
