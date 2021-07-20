@@ -4,6 +4,10 @@
     "/js/categories/add.js": "/js/categories/add.js",
     "/js/categories/edit.js": "/js/categories/edit.js",
     "/js/articles/add.js": "/js/articles/add.js",
+    "/js/series/index.js": "/js/series/index.js",
+    "/js/series/add.js": "/js/series/add.js",
+    "/js/series/edit.js": "/js/series/edit.js",
+    "/css/series/index.css": "/css/series/index.css",
     "/css/articles/add.css": "/css/articles/add.css",
     "/css/app.css": "/css/app.css"
 }

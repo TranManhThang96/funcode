@@ -1,3 +1,13 @@
+variableDefined = () => {
+  return {
+    SORTING_ASC_CLASS: 'sorting--asc',
+    SORTING_DESC_CLASS: 'sorting--desc',
+    ORDER_BY_ASC: 'asc',
+    ORDER_BY_DESC: 'desc',
+  }
+}
+
+
 /**
  * reset errors.
  */
@@ -16,7 +26,7 @@ setError = (errors, parentElement = '') => {
 	for (let error in errors) {
 		let form_control;
 		form_control = parentElement ? $(`${parentElement} .form-control[name="${error}"], ${parentElement} .custom-select[name="${error}"]`) : $(`.form-control[name="${error}"], .custom-select[name="${error}"]`);
-		
+
 		if (typeof form_control !== 'undefined') {
 			form_control.addClass('is-invalid');
 			form_control.parent().append(`<div class="invalid-feedback text-nowrap">${errors[error][0]}</div>`);
@@ -28,7 +38,7 @@ setError = (errors, parentElement = '') => {
  * handle when change page.
  * @param page
  */
-changePage = (page, parentElement = null) => {
+changePage = (page, url = null, parentElement = null) => {
 	if (!isNaN(page)) {
 		$('#frm-search input[name="page"]').val(page);
 	} else {
@@ -38,12 +48,9 @@ changePage = (page, parentElement = null) => {
 		} else {
 			pageCurrent = parseInt($('.page-item.active .page-link').text());
 		}
-		
+
 		if (page === '›') {
-			console.log('co vao day')
 			let pageMax = $('.page-item:last').prev().children().text();
-			console.log('co vao day', pageMax)
-			console.log('co vao day', pageCurrent)
 			if (pageMax > pageCurrent) {
 				$('#frm-search input[name="page"]').val(pageCurrent + 1);
 			}
@@ -53,7 +60,7 @@ changePage = (page, parentElement = null) => {
 			}
 		}
 	}
-	getLists();
+	getLists(url);
 };
 
 /**
@@ -78,4 +85,44 @@ getLists = (url = 'search', successFunc = null, errorFunc = null) => {
 			errorFunc(xhr);
 		}
 	});
+};
+
+modalConfirm = function (title = 'Confirm', body = 'Are you sure?', titleCustom = null, bodyCustom = null) {
+  let modalConfirm = $('#modal-confirm');
+  modalConfirm.modal('show');
+  let btnConfirm = $('#modal-confirm-btn-ok');
+  let btnCancel = $('#modal-confirm-btn-cancel');
+
+  //set title
+  if (titleCustom) {
+    $('#modal-confirm .modal-header').empty();
+    $('#modal-confirm .modal-header').append(titleCustom);
+    $('#modal-confirm .modal-header').append(
+      `<button type="button" class="close 1" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+      </button>`
+    );
+  } else {
+    $('#modal-confirm .modal-header .modal-title').text(title);
+  }
+
+  //set body
+  if (bodyCustom) {
+    $('#modal-confirm .modal-body').empty();
+    $('#modal-confirm .modal-body').append(bodyCustom);
+  } else {
+    $('#modal-confirm .modal-body p').text(body);
+  }
+
+  return new Promise(function (resolve, reject) {
+    btnConfirm.off().on('click', function () {
+      modalConfirm.modal('hide');
+      resolve(true);
+    });
+
+    btnCancel.off().on('click', function () {
+      modalConfirm.modal('hide');
+      resolve(false);
+    });
+  })
 };

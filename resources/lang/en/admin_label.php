@@ -13,5 +13,12 @@ return [
     ],
     'articles' => [
         'aside' => 'Articles'
+    ],
+    'series' => [
+        'aside' => 'Series',
+        'index' => [
+            'title' => 'Series',
+            'btn_add' => 'Add series',
+        ],
     ]
 ];
