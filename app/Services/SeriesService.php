@@ -26,9 +26,9 @@ class SeriesService extends BaseService
         return $this->seriesRepository->create($attributes);
     }
 
-    public function getCountSlug($slug, $id = null)
+    public function getCountSlugLikeName($slug, $id = null)
     {
-        return $this->seriesRepository->getCountSlug($slug, $id);
+        return $this->seriesRepository->getCountSlugLikeName($slug, $id);
     }
 
     public function find($id)

@@ -34,28 +34,43 @@ $(document).ready(function () {
     };
   })
 
-  tinymce.init({
-    selector: 'textarea#editor',
-    plugins: [
-      "image imagetool codesample",
-    ],
-    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image | codesample",
-    codesample_global_prismjs: true,
-    file_picker_callback: function (callback, value, meta) {
-      let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-      let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+  // tinymce.init({
+  //   selector: 'textarea#editor',
+  //   plugins: [
+  //     "image imagetool codesample",
+  //   ],
+  //   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image | codesample",
+  //   codesample_global_prismjs: true,
+  //   file_picker_callback: function (callback, value, meta) {
+  //     let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+  //     let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+  //
+  //     let type = 'image' === meta.filetype ? 'Images' : 'Files',
+  //       url  = '/filemanager?editor=tinymce5&type=' + type;
+  //     tinymce.activeEditor.windowManager.openUrl({
+  //       url : url,
+  //       title : 'Filemanager',
+  //       width : x * 0.8,
+  //       height : y * 0.8,
+  //       onMessage: (api, message) => {
+  //         callback(message.content);
+  //       }
+  //     });
+  //   }
+  // });
 
-      let type = 'image' === meta.filetype ? 'Images' : 'Files',
-        url  = '/filemanager?editor=tinymce5&type=' + type;
-      tinymce.activeEditor.windowManager.openUrl({
-        url : url,
-        title : 'Filemanager',
-        width : x * 0.8,
-        height : y * 0.8,
-        onMessage: (api, message) => {
-          callback(message.content);
-        }
-      });
-    }
+  var quill = new Quill('#editor', {
+    modules: {
+      syntax: true,              // Include syntax module,
+      toolbar: '#toolbar-container'
+    },
+    placeholder: 'Please write your content here ...',
+    theme: 'snow'
   });
+
+  $('#btn-submit').click(function (e) {
+    e.preventDefault();
+    $("input[name='content']").val(quill.container.innerHTML);
+    $("#articles-frm").submit();
+  })
 })

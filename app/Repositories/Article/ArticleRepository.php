@@ -20,9 +20,9 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
         return \App\Models\Article::class;
     }
 
-    public function getCountSlug($slug, $id)
+    public function getCountSlugLikeName($slug, $id)
     {
-        return $this->model::where('slug', $slug)
+        return $this->model::where('slug', 'LIKE', $slug . '%')
             ->when($id, function ($query, $id) {
                 return $query->where('id', '<>', $id);
             })->count();

@@ -65,7 +65,7 @@ class SeriesController extends Controller
         // auto create slug by name.
         $slug = Str::slug($params['name'], '-');
         // get the number of slugs that already exist.
-        $countSlug = $this->seriesService->getCountSlug($slug);
+        $countSlug = $this->seriesService->getCountSlugLikeName($slug);
         $params['slug'] = $countSlug > 0 ? $slug . '-' . Str::random(9) : $slug;
         $result = $this->seriesService->store($params);
         if ($result) {
@@ -112,7 +112,7 @@ class SeriesController extends Controller
         // auto create slug by name.
         $slug = Str::slug($params['name'], '-');
         // get the number of slugs that already exist.
-        $countSlug = $this->seriesService->getCountSlug($slug, $id);
+        $countSlug = $this->seriesService->getCountSlugLikeName($slug, $id);
         $params['slug'] = $countSlug > 0 ? $slug . '-' . Str::random(9) : $slug;
         $result = $this->seriesService->update($id, $params);
         if ($result) {

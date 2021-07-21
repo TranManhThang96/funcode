@@ -83,6 +83,12 @@
       color: #fff !important;
     }
   }
+
+  .select2-selection {
+    &.select2-selection--multiple {
+      height: auto;
+    }
+  }
 }
 
 .select-per-page {

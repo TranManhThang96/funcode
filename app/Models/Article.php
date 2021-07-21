@@ -12,7 +12,7 @@ class Article extends Model
 
     use SoftDeletes;
 
-    protected $table = 'categories';
+    protected $table = 'articles';
 
     protected $fillable = [
         'title',
