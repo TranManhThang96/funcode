@@ -20,9 +20,9 @@ class SeriesRepository extends RepositoryAbstract implements SeriesRepositoryInt
         return \App\Models\Series::class;
     }
 
-    public function getCountSlug($slug, $id)
+    public function getCountSlugLikeName($slug, $id)
     {
-        return $this->model::where('slug', $slug)
+        return $this->model::where('slug', 'LIKE', $slug . '%')
             ->when($id, function ($query, $id) {
                 return $query->where('id', '<>', $id);
             })->count();

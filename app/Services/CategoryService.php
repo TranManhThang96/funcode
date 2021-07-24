@@ -36,9 +36,9 @@ class CategoryService extends BaseService
         return $this->categoryRepository->create($attributes);
     }
 
-    public function getCountSlug($slug, $id = null)
+    public function getCountSlugLikeName($slug, $id = null)
     {
-        return $this->categoryRepository->getCountSlug($slug, $id);
+        return $this->categoryRepository->getCountSlugLikeName($slug, $id);
     }
 
     public function find($id)

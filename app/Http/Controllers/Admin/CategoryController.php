@@ -94,7 +94,7 @@ class CategoryController extends Controller
         // auto create slug by name.
         $slug = Str::slug($params['name'], '-');
         // get the number of slugs that already exist.
-        $countSlug = $this->categoryService->getCountSlug($slug);
+        $countSlug = $this->categoryService->getCountSlugLikeName($slug);
         $params['slug'] = $countSlug > 0 ? $slug . '-' . ($countSlug + 1) : $slug;
         $result = $this->categoryService->store($params);
         if ($result) {
@@ -143,7 +143,7 @@ class CategoryController extends Controller
         // auto create slug by name.
         $slug = Str::slug($params['name'], '-');
         // get the number of slugs that already exist.
-        $countSlug = $this->categoryService->getCountSlug($slug, $id);
+        $countSlug = $this->categoryService->getCountSlugLikeName($slug, $id);
         $params['slug'] = $countSlug > 0 ? $slug . '-' . ($countSlug + 1) : $slug;
         $result = $this->categoryService->update($id, $params);
         if ($result) {

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\ArticleService;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends Controller
 {
@@ -51,7 +53,18 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $params = $request->all();
+        $params['title'] = ucwords(strtolower($params['title']));
+        // auto create slug by name.
+        $slug = Str::slug($params['title'], '-');
+        // get the number of slugs that already exist.
+        $countSlug = $this->articleService->getCountSlugLikeName($slug);
+        $params['slug'] = $countSlug > 0 ? $slug . '-' . (int)($countSlug + 1) : $slug;
+        $result = $this->articleService->store($params);
+        if ($result) {
+            return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');
+        }
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
     }
 
     /**

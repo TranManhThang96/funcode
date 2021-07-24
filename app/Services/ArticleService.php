@@ -36,9 +36,9 @@ class ArticleService extends BaseService
         return $this->articleRepository->create($attributes);
     }
 
-    public function getCountSlug($slug, $id = null)
+    public function getCountSlugLikeName($slug, $id = null)
     {
-        return $this->articleRepository->getCountSlug($slug, $id);
+        return $this->articleRepository->getCountSlugLikeName($slug, $id);
     }
 
     public function find($id)
