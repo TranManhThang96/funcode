@@ -62,5 +62,6 @@ class Constant extends BaseEnum
     const ARTICLE_LABEL = 'Article';
     const LEARN_LABEL = 'Learn';
     const TIP_LABEL = 'Tip';
+    const COPY_LABEL = 'Copy';
 
 }

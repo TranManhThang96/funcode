@@ -70,7 +70,9 @@ $(document).ready(function () {
 
   $('#btn-submit').click(function (e) {
     e.preventDefault();
-    $("input[name='content']").val(quill.container.innerHTML);
+    if (!$('.ql-editor').hasClass('ql-blank')) {
+      $("textarea[name='content']").val($('.ql-editor').html());
+    }
     $("#articles-frm").submit();
   })
 })

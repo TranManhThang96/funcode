@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ArticleRequest;
 use App\Services\ArticleService;
 use App\Services\CategoryService;
+use App\Services\TagService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,11 +16,13 @@ class ArticleController extends Controller
 
     protected $articleService;
     protected $categoryService;
+    protected $tagService;
 
-    public function __construct(ArticleService $articleService, CategoryService $categoryService)
+    public function __construct(ArticleService $articleService, CategoryService $categoryService, TagService $tagService)
     {
         $this->articleService = $articleService;
         $this->categoryService = $categoryService;
+        $this->tagService = $tagService;
     }
 
     /**
@@ -42,24 +46,33 @@ class ArticleController extends Controller
         $categories = [];
         $allCategories = $this->categoryService->index();
         showCategories($allCategories, $categories);
-        return view('admin.pages.articles.add', compact('categories'));
+        $tags = $this->tagService->all();
+        return view('admin.pages.articles.add', compact('categories', 'tags'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ArticleRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
         $params = $request->all();
         $params['title'] = ucwords(strtolower($params['title']));
+        // SLUG START
         // auto create slug by name.
         $slug = Str::slug($params['title'], '-');
         // get the number of slugs that already exist.
         $countSlug = $this->articleService->getCountSlugLikeName($slug);
         $params['slug'] = $countSlug > 0 ? $slug . '-' . (int)($countSlug + 1) : $slug;
+        // SLUG END
+
+        // TAG START
+        $tags = $this->tagService->syncTag($request->tags);
+        $params['tags'] = $tags;
+        // TAG END
+
         $result = $this->articleService->store($params);
         if ($result) {
             return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');

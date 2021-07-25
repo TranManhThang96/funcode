@@ -1,3 +1,5 @@
+@import "colors";
+
 .page-loading {
   z-index: 1051 !important; // because modal z-index: 1050
   background: rgba(255, 255, 255, .3) !important;
@@ -68,6 +70,12 @@
         padding-left: 0 !important;
         height: unset !important;
         line-height: unset !important;
+      }
+    }
+
+    .select2-search--inline {
+      .select2-search__field {
+        height: 28px !important;
       }
     }
   }
@@ -141,5 +149,27 @@
   }
 }
 
+.invalid-feedback {
+  display: block !important;
+}
+
+.invalid-border {
+  border-color: $border-color-error !important;
+}
+
+.remove-button-corner {
+  width: 0;
+  height: 0;
+  border-top: 30px solid #277fd4;
+  border-left: 30px solid transparent;
+  position: relative;
+  &::after {
+    content: '\2716';
+    position: absolute;
+    top: -30px;
+    left: -14px;
+    color: #fff;
+  }
+}
 
 

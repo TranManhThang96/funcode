@@ -27,4 +27,9 @@ class Article extends Model
         'created_by',
         'updated_by'
     ];
+
+    public function tags()
+    {
+        return $this->belongsToMany(\App\Models\Tag::class);
+    }
 }

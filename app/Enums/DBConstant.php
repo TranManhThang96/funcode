@@ -23,4 +23,5 @@ class DBConstant extends BaseEnum
     const ARTICLE = 1;
     const LEARN = 2;
     const TIP = 3;
+    const COPY = 4;
 }

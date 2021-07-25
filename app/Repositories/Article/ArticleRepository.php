@@ -44,4 +44,13 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
             })->orderBy($sort_by, $order_by)->get();
     }
 
+    public function create(array $attributes)
+    {
+        $articleCreated = $this->model->create($attributes);
+        if (!empty($articleCreated->id) && $attributes['tags']) {
+            $articleCreated->tags()->sync($attributes['tags']);
+        }
+        return $articleCreated;
+    }
+
 }
