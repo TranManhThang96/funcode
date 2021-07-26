@@ -1,6 +1,11 @@
 require('../master');
 $(document).ready(function () {
   $('.custom-select-2').select2({
+    placeholder: "Select a option",
+  });
+
+  $('.select-tags').select2({
+    placeholder: "Select a state",
     tags: true,
     tokenSeparators: [',', ' ']
   });

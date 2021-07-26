@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ArticleRequest;
 use App\Services\ArticleService;
 use App\Services\CategoryService;
+use App\Services\SeriesService;
 use App\Services\TagService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -17,12 +18,19 @@ class ArticleController extends Controller
     protected $articleService;
     protected $categoryService;
     protected $tagService;
+    protected $seriesService;
 
-    public function __construct(ArticleService $articleService, CategoryService $categoryService, TagService $tagService)
+    public function __construct(
+        ArticleService $articleService,
+        CategoryService $categoryService,
+        TagService $tagService,
+        SeriesService $seriesService
+    )
     {
         $this->articleService = $articleService;
         $this->categoryService = $categoryService;
         $this->tagService = $tagService;
+        $this->seriesService = $seriesService;
     }
 
     /**
@@ -30,10 +38,21 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $articles = $this->articleService->index();
+        $articles = $this->articleService->index($request);
         return view('admin.pages.articles.index', compact('articles'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(Request $request)
+    {
+        $articles = $this->articleService->index($request);
+        $view = view('admin.pages.articles.list', compact('articles'))->render();
+        return $this->apiSendSuccess($view, Response::HTTP_OK);
     }
 
     /**
@@ -47,7 +66,8 @@ class ArticleController extends Controller
         $allCategories = $this->categoryService->index();
         showCategories($allCategories, $categories);
         $tags = $this->tagService->all();
-        return view('admin.pages.articles.add', compact('categories', 'tags'));
+        $series = $this->seriesService->all();
+        return view('admin.pages.articles.add', compact('categories', 'tags', 'series'));
     }
 
     /**
@@ -73,11 +93,8 @@ class ArticleController extends Controller
         $params['tags'] = $tags;
         // TAG END
 
-        $result = $this->articleService->store($params);
-        if ($result) {
-            return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');
-        }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+        $this->articleService->store($params);
+        return redirect()->route('admin.articles.index');
     }
 
     /**
@@ -122,6 +139,10 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $isDeleted = $this->articleService->delete($id);
+        if ($isDeleted) {
+            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, 'kk');
+        }
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
     }
 }

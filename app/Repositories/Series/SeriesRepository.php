@@ -41,4 +41,9 @@ class SeriesRepository extends RepositoryAbstract implements SeriesRepositoryInt
             ->paginate($perPage);
     }
 
+    public function all()
+    {
+        return $this->model::orderBy('id', Constant::SORT_BY_DESC)->get();
+    }
+
 }

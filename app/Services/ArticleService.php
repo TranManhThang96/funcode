@@ -16,9 +16,9 @@ class ArticleService extends BaseService
         $this->articleRepository = $articleRepository;
     }
 
-    public function index()
+    public function index($params)
     {
-        return $this->articleRepository->index();
+        return $this->articleRepository->index($params);
     }
 
     public function search($params)
@@ -49,5 +49,10 @@ class ArticleService extends BaseService
     public function update($id, $attributes)
     {
         return $this->articleRepository->update($id, $attributes);
+    }
+
+    public function delete($id)
+    {
+        return $this->articleRepository->delete($id);
     }
 }

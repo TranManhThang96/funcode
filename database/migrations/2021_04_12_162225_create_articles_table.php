@@ -18,6 +18,8 @@ class CreateArticlesTable extends Migration
             $table->string('title', 255);
             $table->string('slug')->unique();
             $table->integer('category_id')->default(0)->comment('0: unknown');
+            $table->integer('series_id')->nullable()->comment('series');
+            $table->integer('series_order')->default(0)->comment('thu tu trong series, mac dinh la 0');
             $table->string('excerpt')->nullable()->comment('short description');
             $table->text('content');
             $table->string('image')->nullable();

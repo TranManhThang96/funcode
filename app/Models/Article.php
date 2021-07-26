@@ -18,6 +18,8 @@ class Article extends Model
         'title',
         'slug',
         'category_id',
+        'series_id',
+        'series_order',
         'excerpt',
         'content',
         'image',

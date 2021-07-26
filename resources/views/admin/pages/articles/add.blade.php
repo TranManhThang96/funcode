@@ -15,11 +15,7 @@
                     <div class="card-body">
                         @include('admin.pages.articles.components.toolbar_editor')
                         <div id="editor" style="height: 900px;" name="content" class="{{$errors->has('content') ? 'invalid-border' : ''}}"></div>
-                        @if ($errors->has('content'))
-                            <div class="invalid-feedback">
-                                {{$errors->first('content')}}
-                            </div>
-                        @endif
+                        <x-custom-error field="content" />
                         <textarea id="editor" name="content" rows="30" style="display: none"></textarea>
                     </div>
                 </div>
@@ -29,11 +25,7 @@
                 <div class="form-group">
                     <label for="article-name">Title</label>
                     <input name="title" type="text" class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}" id="article-title" placeholder="Enter article title">
-                    @if ($errors->has('title'))
-                        <div class="invalid-feedback">
-                            {{$errors->first('title')}}
-                        </div>
-                    @endif
+                    <x-custom-error field="title" />
                 </div>
 
                 <div class="form-group">
@@ -46,16 +38,25 @@
                             @endforeach
                         @endif
                     </select>
-                    @if ($errors->has('category_id'))
-                        <div class="invalid-feedback">
-                            {{$errors->first('category_id')}}
-                        </div>
-                    @endif
+                    <x-custom-error field="category_id" />
+                </div>
+
+                <div class="form-group">
+                    <label for="article-series">Series</label>
+                    <select class="custom-select custom-select-2 mr-sm-2" name="series_id">
+                        <option selected value=""></option>
+                        @if(isset($series))
+                            @foreach($series as $seriesItem)
+                                <option value="{{$seriesItem['id']}}">{{$seriesItem['name']}}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                    <x-custom-error field="series_id" />
                 </div>
 
                 <div class="form-group">
                     <label for="article-tags">Tag</label>
-                    <select id="article-tags-multiple" class="custom-select custom-select-2 mr-sm-2 select-category-parent" name="tags[]"
+                    <select id="article-tags-multiple" class="custom-select custom-select-2 mr-sm-2 select-tags" name="tags[]"
                             multiple="multiple">
                             @if(isset($tags))
                                 @foreach($tags as $tag)
@@ -121,11 +122,7 @@
                 <div class="form-group">
                     <label for="excerpt-content">Excerpt</label>
                     <textarea name="excerpt" class="form-control {{$errors->has('excerpt') ? 'is-invalid' : ''}}" id="excerpt-content" rows="3"></textarea>
-                    @if ($errors->has('excerpt'))
-                        <div class="invalid-feedback">
-                            {{$errors->first('excerpt')}}
-                        </div>
-                    @endif
+                    <x-custom-error field="excerpt" />
                 </div>
 
                 <div class="form-group">
@@ -136,11 +133,7 @@
                         <div id="articles-image-remove" class="remove-button-corner d-flex justify-content-center align-items-center">
                         </div>
                     </div>
-                    @if ($errors->has('image'))
-                        <div class="invalid-feedback">
-                            {{$errors->first('image')}}
-                        </div>
-                    @endif
+                    <x-custom-error field="image" />
                 </div>
 
                 <div class="form-group">

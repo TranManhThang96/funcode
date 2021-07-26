@@ -28,9 +28,18 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
             })->count();
     }
 
-    public function index()
+    public function index($params)
     {
-        return $this->model::orderBy('id', Constant::SORT_BY_DESC)->get();
+        $q = $params->q ?? '';
+        $sortBy = $params->sort_by ?? 'id';
+        $orderBy = $params->order_by ?? 'ASC';
+        $perPage = $params->per_page ?? Constant::DEFAULT_PER_PAGE;
+//        dd($params);
+        return $this->model
+            ->when($q, function ($query, $q) {
+                return $query->where('name', 'like', "%$q%");
+            })->orderBy($sortBy, $orderBy)
+            ->paginate($perPage);
     }
 
     public function search($params)

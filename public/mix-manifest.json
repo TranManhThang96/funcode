@@ -4,6 +4,7 @@
     "/js/categories/add.js": "/js/categories/add.js",
     "/js/categories/edit.js": "/js/categories/edit.js",
     "/js/articles/add.js": "/js/articles/add.js",
+    "/js/articles/index.js": "/js/articles/index.js",
     "/js/series/index.js": "/js/series/index.js",
     "/js/series/add.js": "/js/series/add.js",
     "/js/series/edit.js": "/js/series/edit.js",

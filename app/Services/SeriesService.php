@@ -16,6 +16,11 @@ class SeriesService extends BaseService
         $this->seriesRepository = $seriesRepository;
     }
 
+    public function all()
+    {
+        return $this->seriesRepository->all();
+    }
+
     public function index($params)
     {
         return $this->seriesRepository->index($params);
