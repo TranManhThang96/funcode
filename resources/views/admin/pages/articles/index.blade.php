@@ -62,4 +62,5 @@
 
 @section('css')
     <link href="{{asset('assets/libs/select2/dist/css/select2.min.css')}}" rel="stylesheet"></link>
+    <link type="text/css" href="{{asset('css/articles/index.css')}}" rel="stylesheet"/>
 @endsection

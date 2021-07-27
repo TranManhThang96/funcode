@@ -9,6 +9,7 @@
     "/js/series/add.js": "/js/series/add.js",
     "/js/series/edit.js": "/js/series/edit.js",
     "/css/series/index.css": "/css/series/index.css",
+    "/css/articles/index.css": "/css/articles/index.css",
     "/css/articles/add.css": "/css/articles/add.css",
     "/css/app.css": "/css/app.css"
 }

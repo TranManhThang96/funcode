@@ -116,7 +116,13 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = [];
+        $allCategories = $this->categoryService->index();
+        showCategories($allCategories, $categories);
+        $tags = $this->tagService->all();
+        $series = $this->seriesService->all();
+        $article = $this->articleService->find($id);
+        return view('admin.pages.articles.edit', compact('categories', 'tags', 'series', 'article'));
     }
 
     /**

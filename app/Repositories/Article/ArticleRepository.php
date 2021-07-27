@@ -34,8 +34,11 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
         $sortBy = $params->sort_by ?? 'id';
         $orderBy = $params->order_by ?? 'ASC';
         $perPage = $params->per_page ?? Constant::DEFAULT_PER_PAGE;
-//        dd($params);
+
         return $this->model
+            ->with('category:id,name')
+            ->with('series:id,name')
+            ->with('tags')
             ->when($q, function ($query, $q) {
                 return $query->where('name', 'like', "%$q%");
             })->orderBy($sortBy, $orderBy)
@@ -60,6 +63,13 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
             $articleCreated->tags()->sync($attributes['tags']);
         }
         return $articleCreated;
+    }
+
+    public function find($id)
+    {
+        return $this->model
+            ->with('tags')
+            ->find($id);
     }
 
 }
