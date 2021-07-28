@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Series;
+namespace App\Repositories\Tag;
 
 use App\Enums\Constant;
 use App\Repositories\RepositoryAbstract;
 use Carbon\Carbon;
 use App\Enums\DBConstant;
 
-class SeriesRepository extends RepositoryAbstract implements SeriesRepositoryInterface
+class TagRepository extends RepositoryAbstract implements TagRepositoryInterface
 {
     /**
      * get model
@@ -17,7 +17,7 @@ class SeriesRepository extends RepositoryAbstract implements SeriesRepositoryInt
      */
     public function getModel()
     {
-        return \App\Models\Series::class;
+        return \App\Models\Tag::class;
     }
 
     public function getCountSlugLikeName($slug, $id)
@@ -44,6 +44,14 @@ class SeriesRepository extends RepositoryAbstract implements SeriesRepositoryInt
     public function all()
     {
         return $this->model::orderBy('id', Constant::SORT_BY_DESC)->get();
+    }
+
+    public function getTagBySlug($slug, $id = null)
+    {
+        return $this->model::where('slug', $slug)
+            ->when($id, function ($query, $id) {
+                return $query->where('id', '<>', $id);
+            })->first();
     }
 
 }

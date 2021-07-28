@@ -28,9 +28,21 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
             })->count();
     }
 
-    public function index()
+    public function index($params)
     {
-        return $this->model::orderBy('id', Constant::SORT_BY_DESC)->get();
+        $q = $params->q ?? '';
+        $sortBy = $params->sort_by ?? 'id';
+        $orderBy = $params->order_by ?? 'ASC';
+        $perPage = $params->per_page ?? Constant::DEFAULT_PER_PAGE;
+
+        return $this->model
+            ->with('category:id,name')
+            ->with('series:id,name')
+            ->with('tags')
+            ->when($q, function ($query, $q) {
+                return $query->where('name', 'like', "%$q%");
+            })->orderBy($sortBy, $orderBy)
+            ->paginate($perPage);
     }
 
     public function search($params)
@@ -42,6 +54,22 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
             ->when($q, function ($query, $q) {
                 return $query->where('name', 'like', "%$q%");
             })->orderBy($sort_by, $order_by)->get();
+    }
+
+    public function create(array $attributes)
+    {
+        $articleCreated = $this->model->create($attributes);
+        if (!empty($articleCreated->id) && $attributes['tags']) {
+            $articleCreated->tags()->sync($attributes['tags']);
+        }
+        return $articleCreated;
+    }
+
+    public function find($id)
+    {
+        return $this->model
+            ->with('tags')
+            ->find($id);
     }
 
 }

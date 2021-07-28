@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\View\Components\CustomError;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::component('custom-error', CustomError::class);
     }
 }

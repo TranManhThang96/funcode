@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Constant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,12 +13,15 @@ class Article extends Model
 
     use SoftDeletes;
 
+    protected $appends = ['status_label', 'type_label'];
     protected $table = 'articles';
 
     protected $fillable = [
         'title',
         'slug',
         'category_id',
+        'series_id',
+        'series_order',
         'excerpt',
         'content',
         'image',
@@ -27,4 +31,29 @@ class Article extends Model
         'created_by',
         'updated_by'
     ];
+
+    public function tags()
+    {
+        return $this->belongsToMany(\App\Models\Tag::class, 'article_tag', 'article_id' ,'tag_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(\App\Models\Category::class, 'category_id', 'id');
+    }
+
+    public function series()
+    {
+        return $this->belongsTo(\App\Models\Series::class, 'series_id', 'id');
+    }
+
+    public function getStatusLabelAttribute()
+    {
+        return Constant::ARTICLE_STATUS_LABEL_DATA[$this->attributes['status']];
+    }
+
+    public function getTypeLabelAttribute()
+    {
+        return Constant::ARTICLE_TYPE_LABEL_DATA[$this->attributes['type']];
+    }
 }

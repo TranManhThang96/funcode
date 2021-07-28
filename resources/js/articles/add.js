@@ -1,6 +1,11 @@
 require('../master');
 $(document).ready(function () {
   $('.custom-select-2').select2({
+    placeholder: "Select a option",
+  });
+
+  $('.select-tags').select2({
+    placeholder: "Select a state",
     tags: true,
     tokenSeparators: [',', ' ']
   });
@@ -70,7 +75,9 @@ $(document).ready(function () {
 
   $('#btn-submit').click(function (e) {
     e.preventDefault();
-    $("input[name='content']").val(quill.container.innerHTML);
+    if (!$('.ql-editor').hasClass('ql-blank')) {
+      $("textarea[name='content']").val($('.ql-editor').html());
+    }
     $("#articles-frm").submit();
   })
 })

@@ -53,14 +53,17 @@ class Constant extends BaseEnum
     const SORT_BY_DESC = 'DESC';
 
     // [articles status]
-    const ARTICLE_PUBLISH_LABEL = "Publish";
-    const ARTICLE_DRAFT_LABEL = "Draft";
-    const ARTICLE_DELETED_LABEL = "Deleted";
-    const ARTICLE_PENDING_LABEL = "Pending";
+    const ARTICLE_PUBLISH_LABEL = 'Publish';
+    const ARTICLE_DRAFT_LABEL = 'Draft';
+    const ARTICLE_DELETED_LABEL = 'Deleted';
+    const ARTICLE_PENDING_LABEL = 'Pending';
+    const ARTICLE_STATUS_LABEL_DATA = ['', 'Publish', 'Draft', 'Deleted', 'Pending'];
 
     // [articles type]
     const ARTICLE_LABEL = 'Article';
     const LEARN_LABEL = 'Learn';
     const TIP_LABEL = 'Tip';
+    const COPY_LABEL = 'Copy';
+    const ARTICLE_TYPE_LABEL_DATA = ['', 'Article', 'Learn', 'Tip', 'Copy'];
 
 }

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ArticleRequest;
 use App\Services\ArticleService;
 use App\Services\CategoryService;
+use App\Services\SeriesService;
+use App\Services\TagService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,11 +17,20 @@ class ArticleController extends Controller
 
     protected $articleService;
     protected $categoryService;
+    protected $tagService;
+    protected $seriesService;
 
-    public function __construct(ArticleService $articleService, CategoryService $categoryService)
+    public function __construct(
+        ArticleService $articleService,
+        CategoryService $categoryService,
+        TagService $tagService,
+        SeriesService $seriesService
+    )
     {
         $this->articleService = $articleService;
         $this->categoryService = $categoryService;
+        $this->tagService = $tagService;
+        $this->seriesService = $seriesService;
     }
 
     /**
@@ -26,10 +38,21 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $articles = $this->articleService->index();
+        $articles = $this->articleService->index($request);
         return view('admin.pages.articles.index', compact('articles'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(Request $request)
+    {
+        $articles = $this->articleService->index($request);
+        $view = view('admin.pages.articles.list', compact('articles'))->render();
+        return $this->apiSendSuccess($view, Response::HTTP_OK);
     }
 
     /**
@@ -42,29 +65,36 @@ class ArticleController extends Controller
         $categories = [];
         $allCategories = $this->categoryService->index();
         showCategories($allCategories, $categories);
-        return view('admin.pages.articles.add', compact('categories'));
+        $tags = $this->tagService->all();
+        $series = $this->seriesService->all();
+        return view('admin.pages.articles.add', compact('categories', 'tags', 'series'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ArticleRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
         $params = $request->all();
         $params['title'] = ucwords(strtolower($params['title']));
+        // SLUG START
         // auto create slug by name.
         $slug = Str::slug($params['title'], '-');
         // get the number of slugs that already exist.
         $countSlug = $this->articleService->getCountSlugLikeName($slug);
         $params['slug'] = $countSlug > 0 ? $slug . '-' . (int)($countSlug + 1) : $slug;
-        $result = $this->articleService->store($params);
-        if ($result) {
-            return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');
-        }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+        // SLUG END
+
+        // TAG START
+        $tags = $this->tagService->syncTag($request->tags);
+        $params['tags'] = $tags;
+        // TAG END
+
+        $this->articleService->store($params);
+        return redirect()->route('admin.articles.index');
     }
 
     /**
@@ -86,7 +116,13 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = [];
+        $allCategories = $this->categoryService->index();
+        showCategories($allCategories, $categories);
+        $tags = $this->tagService->all();
+        $series = $this->seriesService->all();
+        $article = $this->articleService->find($id);
+        return view('admin.pages.articles.edit', compact('categories', 'tags', 'series', 'article'));
     }
 
     /**
@@ -109,6 +145,10 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $isDeleted = $this->articleService->delete($id);
+        if ($isDeleted) {
+            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, 'kk');
+        }
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
     }
 }

@@ -27,6 +27,11 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Series\SeriesRepositoryInterface::class,
             \App\Repositories\Series\SeriesRepository::class
         );
+
+        $this->app->bind(
+            \App\Repositories\Tag\TagRepositoryInterface::class,
+            \App\Repositories\Tag\TagRepository::class
+        );
     }
 
     /**
