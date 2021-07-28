@@ -40,7 +40,7 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
             ->with('series:id,name')
             ->with('tags')
             ->when($q, function ($query, $q) {
-                return $query->where('name', 'like', "%$q%");
+                return $query->where('title', 'like', "%$q%");
             })->orderBy($sortBy, $orderBy)
             ->paginate($perPage);
     }
@@ -52,7 +52,7 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
         $order_by = $params->order_by ?? 'ASC';
         return $this->model
             ->when($q, function ($query, $q) {
-                return $query->where('name', 'like', "%$q%");
+                return $query->where('title', 'like', "%$q%");
             })->orderBy($sort_by, $order_by)->get();
     }
 

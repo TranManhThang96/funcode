@@ -28,6 +28,7 @@ class CreateArticlesTable extends Migration
             $table->json('link_references')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
