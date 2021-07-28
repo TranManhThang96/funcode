@@ -32,7 +32,7 @@ class SeriesRepository extends RepositoryAbstract implements SeriesRepositoryInt
     {
         $q = $params->q ?? '';
         $sortBy = $params->sort_by ?? 'id';
-        $orderBy = $params->order_by ?? 'ASC';
+        $orderBy = $params->order_by ?? 'DESC';
         $perPage = $params->per_page ?? Constant::DEFAULT_PER_PAGE;
         return $this->model
             ->when($q, function ($query, $q) {

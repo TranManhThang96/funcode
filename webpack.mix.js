@@ -31,3 +31,10 @@ mix.js('resources/js/series/index', 'public/js/series');
 mix.js('resources/js/series/add', 'public/js/series');
 mix.js('resources/js/series/edit', 'public/js/series');
 mix.sass('resources/sass/series/index.scss', 'public/css/series');
+
+// [series]
+mix.js('resources/js/tags/index', 'public/js/tags');
+mix.js('resources/js/tags/add', 'public/js/tags');
+mix.js('resources/js/tags/edit', 'public/js/tags');
+
+

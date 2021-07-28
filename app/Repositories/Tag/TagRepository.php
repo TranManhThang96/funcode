@@ -32,11 +32,12 @@ class TagRepository extends RepositoryAbstract implements TagRepositoryInterface
     {
         $q = $params->q ?? '';
         $sortBy = $params->sort_by ?? 'id';
-        $orderBy = $params->order_by ?? 'ASC';
+        $orderBy = $params->order_by ?? 'DESC';
         $perPage = $params->per_page ?? Constant::DEFAULT_PER_PAGE;
         return $this->model
+            ->withCount('articles')
             ->when($q, function ($query, $q) {
-                return $query->where('name', 'like', "%$q%");
+                return $query->where('label', 'like', "%$q%");
             })->orderBy($sortBy, $orderBy)
             ->paginate($perPage);
     }
