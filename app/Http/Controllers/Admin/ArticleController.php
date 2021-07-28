@@ -83,9 +83,7 @@ class ArticleController extends Controller
         // SLUG START
         // auto create slug by name.
         $slug = Str::slug($params['title'], '-');
-        // get the number of slugs that already exist.
-        $countSlug = $this->articleService->getCountSlugLikeName($slug);
-        $params['slug'] = $countSlug > 0 ? $slug . '-' . (int)($countSlug + 1) : $slug;
+        $params['slug'] = $slug . '-'. date("YmdHis",time());
         // SLUG END
 
         // TAG START
@@ -128,13 +126,28 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ArticleRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticleRequest $request, $id)
     {
-        //
+        $params = $request->all();
+        $params['title'] = ucwords(strtolower($params['title']));
+
+        // SLUG START
+        // auto create slug by name.
+        $slug = Str::slug($params['title'], '-');
+        $params['slug'] = $slug . '-'. date("YmdHis",time());
+        // SLUG END
+
+        // TAG START
+        $tags = $this->tagService->syncTag($request->tags);
+        $params['tags'] = $tags;
+        // TAG END
+
+        $this->articleService->update($id, $params);
+        return redirect()->route('admin.articles.index');
     }
 
     /**

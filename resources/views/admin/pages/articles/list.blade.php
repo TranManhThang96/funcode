@@ -63,15 +63,17 @@
             <td>{{date('d/m/Y H:i:s', strtotime($article->created_at))}}</td>
             <td>{{date('d/m/Y H:i:s', strtotime($article->updated_at))}}</td>
             <td>
-                <a href="{{route('admin.articles.edit', ['article' => $article->id])}}" type="button" class="btn btn-cyan btn-sm btn-edit-article" >Edit</a>
-                <button type="button" class="btn btn-danger btn-sm btn-delete-article" data-article-id="{{$article->id}}">
-                    Delete
-                </button>
+                <div class="flex d-flex">
+                    <a href="{{route('admin.articles.edit', ['article' => $article->id])}}" type="button" class="btn btn-cyan btn-sm btn-edit-article mr-2">Edit</a>
+                    <button type="button" class="btn btn-danger btn-sm btn-delete-article" data-article-id="{{$article->id}}">
+                        Delete
+                    </button>
+                </div>
             </td>
         </tr>
     @empty
         <tr>
-            <td colspan="8" class="text-center font-weight-bold py-5">Empty data!</td>
+            <td colspan="12" class="text-center font-weight-bold py-5">Empty data!</td>
         </tr>
     @endforelse
     </tbody>

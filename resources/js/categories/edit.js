@@ -2,7 +2,7 @@ require('../master');
 $(document).ready(function () {
 	let modalEditCategory = $('#modal-edit-category');
 	let modalAddCategory = $('#modal-add-category');
-	
+
 	// handle when btn add category click
 	$(document).on('click', '.btn-edit-category', function () {
 		let categoryId = $(this).data('category-id');
@@ -13,13 +13,13 @@ $(document).ready(function () {
 			success: function (response) {
 				modalEditCategory.html(response.data).modal('show');
 				modalAddCategory.empty();
-				$('.select-category-parent').select2({dropdownParent: '.modal-content'});
+				$('.select-category-parent').select2({dropdownParent: '#modal-edit-category .modal-content'});
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
 			}
 		});
 	})
-	
+
 	// handle when save category click
 	$(document).on('click', '#edit-category', function () {
 		$('.page-loading').fadeIn();

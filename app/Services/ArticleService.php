@@ -43,7 +43,7 @@ class ArticleService extends BaseService
 
     public function find($id)
     {
-        return $this->articleRepository->find($id);
+        return $this->articleRepository->findById($id);
     }
 
     public function update($id, $attributes)

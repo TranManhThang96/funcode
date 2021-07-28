@@ -49,7 +49,11 @@ class ArticleRequest extends FormRequest
                 ];
             case 'PUT':
                 return [
-                    'name' => ['nullable', 'string', Rule::unique('series')->ignore($this->id)],
+                    'title' => ['required', 'string', Rule::unique('articles')->ignore($this->id)],
+                    'category_id' => 'required|numeric',
+                    'excerpt' => 'string|nullable',
+                    'content' => 'required',
+                    'image' => 'string|nullable'
                 ];
             case 'PATCH':
             default:
