@@ -12,7 +12,11 @@ return [
         ]
     ],
     'articles' => [
-        'aside' => 'Articles'
+        'aside' => 'Articles',
+        'index' => [
+            'title' => 'Articles',
+            'btn_add' => 'Add articles',
+        ],
     ],
     'series' => [
         'aside' => 'Series',

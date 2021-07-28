@@ -45,15 +45,11 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
             ->paginate($perPage);
     }
 
-    public function search($params)
+    public function findById($id)
     {
-        $q = $params->q ?? '';
-        $sort_by = $params->sort_by ?? 'id';
-        $order_by = $params->order_by ?? 'ASC';
         return $this->model
-            ->when($q, function ($query, $q) {
-                return $query->where('title', 'like', "%$q%");
-            })->orderBy($sort_by, $order_by)->get();
+            ->with('tags')
+            ->find($id);
     }
 
     public function create(array $attributes)
@@ -65,11 +61,16 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
         return $articleCreated;
     }
 
-    public function find($id)
+    public function update($id, $attributes)
     {
-        return $this->model
-            ->with('tags')
-            ->find($id);
+        $article = $this->model->find($id);
+        if ($article) {
+            $isUpdated = $article->update($attributes);
+            if ($attributes['tags']) {
+                $article->tags()->sync($attributes['tags']);
+            }
+            return $isUpdated;
+        }
+        return false;
     }
-
 }

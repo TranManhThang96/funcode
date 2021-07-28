@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-6 col-lg-6">
             <a href="{{route('admin.articles.create')}}" class="btn btn-success">
-                {{__('admin_label.categories.index.btn_add')}}
+                {{__('admin_label.articles.index.btn_add')}}
             </a>
         </div>
     </div>

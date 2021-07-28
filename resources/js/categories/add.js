@@ -2,7 +2,7 @@ require('../master');
 $(document).ready(function () {
 	let modalAddCategory = $('#modal-add-category');
 	let modalEditCategory = $('#modal-edit-category');
-	
+
 	// handle when btn add category click
 	$('#btn-add-category').on('click', function () {
 		$('.page-loading').fadeIn();
@@ -13,14 +13,14 @@ $(document).ready(function () {
 				$('.page-loading').fadeOut();
 				modalAddCategory.html(response.data).modal('show');
 				modalEditCategory.empty();
-				$('.select-category-parent').select2({dropdownParent: '.modal-content'});
+				$('.select-category-parent').select2({dropdownParent: '#modal-add-category .modal-content'});
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
 				$('.page-loading').fadeOut();
 			}
 		});
 	})
-	
+
 	// handle when save category click
 	$(document).on('click', '#add-category', function () {
 		$('.page-loading').fadeIn();
