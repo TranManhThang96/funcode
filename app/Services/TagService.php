@@ -23,6 +23,11 @@ class TagService extends BaseService
         return $this->tagRepository->all();
     }
 
+    public function index($params)
+    {
+        return $this->tagRepository->index($params);
+    }
+
     public function syncTag($tags)
     {
         $tagsId = [];
@@ -50,5 +55,30 @@ class TagService extends BaseService
             }
         }
         return $tagsId;
+    }
+
+    public function getCountSlugLikeName($slug, $id = null)
+    {
+        return $this->tagRepository->getCountSlugLikeName($slug, $id);
+    }
+
+    public function store($attributes)
+    {
+        return $this->tagRepository->create($attributes);
+    }
+
+    public function find($id)
+    {
+        return $this->tagRepository->find($id);
+    }
+
+    public function update($id, $attributes)
+    {
+        return $this->tagRepository->update($id, $attributes);
+    }
+
+    public function delete($id)
+    {
+        return $this->tagRepository->delete($id);
     }
 }

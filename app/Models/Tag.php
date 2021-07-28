@@ -16,8 +16,12 @@ class Tag extends Model
     protected $fillable = [
         'label',
         'slug',
-        'description',
         'created_by',
         'updated_by'
     ];
+
+    public function articles()
+    {
+        return $this->belongsToMany(\App\Models\Article::class, 'article_tag', 'tag_id' ,'article_id');
+    }
 }

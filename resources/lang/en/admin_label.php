@@ -24,5 +24,12 @@ return [
             'title' => 'Series',
             'btn_add' => 'Add series',
         ],
+    ],
+    'tags' => [
+        'aside' => 'Tags',
+        'index' => [
+            'title' => 'Tags',
+            'btn_add' => 'Add tag',
+        ],
     ]
 ];
