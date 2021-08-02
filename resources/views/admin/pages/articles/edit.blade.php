@@ -1,16 +1,16 @@
 @extends('admin.layout.default')
 
-@section('title', 'Articles - edit')
+@section('title', __('admin_label.pages.articles.edit_articles.title'))
 
 @section('breadcrumb')
-    {{renderBreadcrumb('Edit', [['name' => 'Home', 'link' => '/'], ['name' => 'Articles', 'link' => route('admin.articles.index')]])}}
+    {{renderBreadcrumb(__('admin_label.pages.articles.edit_articles.edit_breadcrumb'), [['name' => __('admin_label.pages.home.title'), 'link' => '/'], ['name' => __('admin_label.pages.articles.title'), 'link' => route('admin.articles.index')]])}}
 @endsection
 
 @section('content')
     <form id="articles-frm" method="POST" action="{{route('admin.articles.update', ['article' => $article->id])}}">
         @method('PUT')
         @csrf
-        <input type="hidden" name="id" value="{{$article->id}}" />
+        <input type="hidden" name="id" value="{{$article->id}}"/>
         <div class="row">
             <div class="col-9 bg-white py-2">
                 <div class="card">
@@ -28,7 +28,7 @@
 
             <div class="col-3 bg-white py-2">
                 <div class="form-group">
-                    <label for="article-name">Title</label>
+                    <label for="article-name">{{__('admin_label.pages.articles.table.title')}}</label>
                     <input name="title" type="text" value="{{old('title') ?? $article->title}}"
                            class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}"
                            id="article-title" placeholder="Enter article title">
@@ -36,9 +36,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="article-category">Category</label>
+                    <label for="article-category">{{__('admin_label.pages.articles.table.category')}}</label>
                     <select class="custom-select custom-select-2 mr-sm-2 select-category-parent" name="category_id">
-                        <option selected value="{{\App\Enums\DBConstant::NO_CATEGORY}}">No Category</option>
+                        <option selected
+                                value="{{\App\Enums\DBConstant::NO_CATEGORY}}">{{__('admin_label.pages.articles.table.no_category')}}</option>
                         @if(isset($categories))
                             @foreach($categories as $category)
                                 <option
@@ -50,7 +51,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="article-series">Series</label>
+                    <label for="article-series">{{__('admin_label.pages.articles.table.series')}}</label>
                     <select class="custom-select custom-select-2 mr-sm-2" name="series_id">
                         <option selected value=""></option>
                         @if(isset($series))
@@ -65,7 +66,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="article-tags">Tag</label>
+                    <label for="article-tags">{{__('admin_label.pages.articles.table.tag')}}</label>
                     <select id="article-tags-multiple" class="custom-select custom-select-2 mr-sm-2 select-tags"
                             name="tags[]"
                             multiple="multiple">
@@ -79,7 +80,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="excerpt-content">Status</label></br/>
+                    <label for="excerpt-content">{{__('admin_label.pages.articles.table.status')}}</label></br/>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio"
                                {{(old('status') ?? $article->status) == \App\Enums\DBConstant::ARTICLE_DRAFT ? 'checked' : ''}} name="status"
@@ -115,7 +116,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="excerpt-content">Type</label></br/>
+                    <label for="excerpt-content">{{__('admin_label.pages.articles.table.type')}}</label></br/>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio"
                                {{(old('type') ?? $article->type) == \App\Enums\DBConstant::LEARN ? 'checked' : ''}} checked
@@ -148,17 +149,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="excerpt-content">Excerpt</label>
+                    <label for="excerpt-content">{{__('admin_label.pages.articles.table.excerpt')}}</label>
                     <textarea name="excerpt" class="form-control {{$errors->has('excerpt') ? 'is-invalid' : ''}}"
                               id="excerpt-content" rows="3">{{old('excerpt') ?? $article->excerpt}}</textarea>
                     <x-custom-error field="excerpt"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="excerpt-content">Image</label>
+                    <label for="excerpt-content">{{__('admin_label.pages.articles.table.image')}}</label>
                     <div id="articles-image">
                         <input name="image" id="image-input" value="{{old('image') ?? $article->image}}" type="hidden"/>
-                        <img id="image-preview" src="{{(old('image') ?? $article->image) ?? asset('assets/images/no-image.png')}}"
+                        <img id="image-preview"
+                             src="{{(old('image') ?? $article->image) ?? asset('assets/images/no-image.png')}}"
                              alt="no-image"/>
                         <div id="articles-image-remove"
                              class="remove-button-corner d-flex justify-content-center align-items-center">
@@ -168,7 +170,8 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" id="btn-submit" class="btn btn-success">Submit</button>
+                    <button type="submit" id="btn-submit"
+                            class="btn btn-success">{{__('admin_label.common.button.submit')}}</button>
                 </div>
 
             </div>

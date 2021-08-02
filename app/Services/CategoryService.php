@@ -16,14 +16,14 @@ class CategoryService extends BaseService
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function index()
+    public function index($request)
     {
-        return $this->categoryRepository->index();
+        return $this->categoryRepository->index($request);
     }
 
-    public function search($params)
+    public function all($request = null)
     {
-        return $this->categoryRepository->search($params);
+        return $this->categoryRepository->all($request);
     }
 
     public function getAll()
@@ -49,5 +49,10 @@ class CategoryService extends BaseService
     public function update($id, $attributes)
     {
         return $this->categoryRepository->update($id, $attributes);
+    }
+
+    public function delete($id)
+    {
+        return $this->categoryRepository->delete($id);
     }
 }

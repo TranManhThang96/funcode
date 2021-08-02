@@ -28,20 +28,31 @@ class CategoryRepository extends RepositoryAbstract implements CategoryRepositor
             })->count();
     }
 
-    public function index()
+    public function index($request)
     {
-        return $this->model::orderBy('id', Constant::SORT_BY_DESC)->get();
-    }
+        $q = $request->q ?? '';
+        $sortBy = $request->sort_by ?? 'id';
+        $orderBy = $request->order_by ?? 'ASC';
+        $perPage = $request->per_page ?? Constant::DEFAULT_PER_PAGE;
 
-    public function search($params)
-    {
-        $q = $params->q ?? '';
-        $sort_by = $params->sort_by ?? 'id';
-        $order_by = $params->order_by ?? 'ASC';
         return $this->model
+            ->withCount('articles')
             ->when($q, function ($query, $q) {
                 return $query->where('name', 'like', "%$q%");
-            })->orderBy($sort_by, $order_by)->get();
+            })->orderBy($sortBy, $orderBy)
+            ->paginate($perPage);
+    }
+
+    public function all($request)
+    {
+        $sortBy = $request->sort_by ?? 'id';
+        $orderBy = $request->order_by ?? 'ASC';
+        return $this->model::withCount('articles')->orderBy($sortBy, $orderBy)->get();
+    }
+
+    public function find($id)
+    {
+        return $this->model::withCount('articles')->withCount('categories')->find($id);
     }
 
 }

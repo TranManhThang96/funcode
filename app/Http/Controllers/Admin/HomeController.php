@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class HomeController extends Controller
 {
@@ -81,5 +82,20 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    /**
+     * change locale runtime.
+     */
+    public function changeLocale()
+    {
+        $newLocale = 'en';
+        $locale = session()->get('locale', config('app.locale'));
+        if ($locale == 'en') {
+            $newLocale = 'vi';
+        }
+        session()->put('locale', $newLocale);
+        return redirect()->back();
     }
 }

@@ -32,7 +32,7 @@ $(document).ready(function () {
 				$('.page-loading').fadeOut();
 				modalAddCategory.modal('hide');
 				$('#frm-search input[name="page"]').val(1);
-				getLists();
+				getLists('/categories/search');
 				toastr.success('Thêm category thành công!', 'Thông báo')
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
