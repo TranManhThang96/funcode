@@ -49,4 +49,14 @@ class Category extends Model
     {
         return $date->format('Y/m/d H:i:s');
     }
+
+    public function articles()
+    {
+        return $this->hasMany(\App\Models\Article::class, 'category_id', 'id');
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(\App\Models\Category::class, 'parent_id', 'id');
+    }
 }

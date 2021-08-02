@@ -32,7 +32,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories = collect([]);
-        $allCategories = $this->categoryService->index();
+        $allCategories = $this->categoryService->all();
         showCategories($allCategories, $categories);
         $categories = (new CollectionPagination($categories))->paginate(Constant::DEFAULT_PER_PAGE);
         return view('admin.pages.categories.index', compact('categories'));
@@ -46,24 +46,23 @@ class CategoryController extends Controller
     {
         $categories = collect([]);
         $q = $request->q ?? '';
-        $sort_by = $request->sort_by ?? 'id';
-        $order_by = $request->order_by ? strtoupper($request->order_by) : Constant::SORT_BY_DESC;
-        $allCategories = $this->categoryService->getAll();
-        showCategories($allCategories, $categories);
-        if ($q) {
-            $categories = $categories->filter(function ($item) use ($q) {
-                $q = strtolower($q);
-                return preg_match("/$q/", strtolower($item['name']));
-            });
-        }
-        if ($order_by === Constant::SORT_BY_ASC) {
-            $categories = $categories->sortBy($sort_by);
+        if (!empty($q)) {
+            //show normal
+            $categories = $this->categoryService->index($request);
+            $view = view('admin.pages.categories.list', compact('categories'))->render();
         } else {
-            $categories = $categories->sortByDesc($sort_by);
+            //show full path
+            $allCategories = $this->categoryService->all($request);
+            showCategories($allCategories, $categories);
+            if ($q) {
+                $categories = $categories->filter(function ($item) use ($q) {
+                    $q = strtolower($q);
+                    return preg_match("/$q/", strtolower($item['name']));
+                });
+            }
+            $categories = (new CollectionPagination($categories))->paginate((int)$request->per_page ?? Constant::DEFAULT_PER_PAGE);
+            $view = view('admin.pages.categories.list', compact('categories'))->render();
         }
-
-        $categories = (new CollectionPagination($categories))->paginate((int)$request->per_page ?? Constant::DEFAULT_PER_PAGE);
-        $view = view('admin.pages.categories.list', compact('categories'))->render();
         return $this->apiSendSuccess($view, Response::HTTP_OK);
     }
 
@@ -75,7 +74,7 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = [];
-        $allCategories = $this->categoryService->index();
+        $allCategories = $this->categoryService->all();
         showCategories($allCategories, $categories);
         $view = view('admin.pages.categories.add', compact('categories'))->render();
         return $this->apiSendSuccess($view, Response::HTTP_OK);
@@ -122,7 +121,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $categories = [];
-        $allCategories = $this->categoryService->index();
+        $allCategories = $this->categoryService->all();
         showCategories($allCategories, $categories);
         $category = $this->categoryService->find($id);
         $view = view('admin.pages.categories.edit', compact('categories', 'category'))->render();
@@ -160,6 +159,16 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = $this->categoryService->find($id);
+        if ($category->articles_count > 0) {
+            return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, 'Không thể xóa. Có bài viết');
+        } else if ($category->categories_count > 0) {
+            return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, 'Không thể xóa. Có thể loại con');
+        }
+        $isDeleted = $this->categoryService->delete($id);
+        if ($isDeleted) {
+            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, 'Xóa thành công');
+        }
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, 'Xóa thất bại');
     }
 }

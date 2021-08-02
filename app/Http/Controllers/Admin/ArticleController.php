@@ -63,7 +63,7 @@ class ArticleController extends Controller
     public function create()
     {
         $categories = [];
-        $allCategories = $this->categoryService->index();
+        $allCategories = $this->categoryService->all();
         showCategories($allCategories, $categories);
         $tags = $this->tagService->all();
         $series = $this->seriesService->all();
@@ -115,7 +115,7 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $categories = [];
-        $allCategories = $this->categoryService->index();
+        $allCategories = $this->categoryService->all();
         showCategories($allCategories, $categories);
         $tags = $this->tagService->all();
         $series = $this->seriesService->all();

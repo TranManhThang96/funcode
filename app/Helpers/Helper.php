@@ -68,8 +68,12 @@ if (!function_exists('renderBreadcrumb')) {
 }
 
 if (!function_exists('renderCategoryName')) {
-    function renderCategoryName($name, $level = \App\Enums\Constant::LEVEL_FIRST)
+    function renderCategoryName($name, $level = null)
     {
+        if (is_null($level)) {
+            echo '<div class="px-1 py-1">' . $name . '</div>';
+            return;
+        }
         $distance = (int)($level - 1) * 30;
         echo '<div class="px-1 py-1 text-white float-right" style="background-color: ' . \App\Enums\Constant::LEVEL_COLORS[$level] . '; width: calc(100% - ' . $distance . 'px)">' . $name . '</div>';
     }
