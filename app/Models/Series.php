@@ -20,4 +20,9 @@ class Series extends Model
         'created_by',
         'updated_by',
     ];
+
+    public function articles()
+    {
+        return $this->hasMany(\App\Models\Article::class, 'series_id', 'id');
+    }
 }

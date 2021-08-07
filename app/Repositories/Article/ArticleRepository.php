@@ -32,7 +32,7 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
     {
         $q = $params->q ?? '';
         $sortBy = $params->sort_by ?? 'id';
-        $orderBy = $params->order_by ?? 'ASC';
+        $orderBy = $params->order_by ?? 'DESC';
         $perPage = $params->per_page ?? Constant::DEFAULT_PER_PAGE;
 
         return $this->model

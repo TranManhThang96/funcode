@@ -95,9 +95,18 @@ class CategoryController extends Controller
         // get the number of slugs that already exist.
         $countSlug = $this->categoryService->getCountSlugLikeName($slug);
         $params['slug'] = $countSlug > 0 ? $slug . '-' . ($countSlug + 1) : $slug;
-        $result = $this->categoryService->store($params);
-        if ($result) {
-            return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');
+        $category = $this->categoryService->store($params);
+        if ($category) {
+            $isArticlesPage = isset($request->page) && ($request->page === 'articles');
+            if ($isArticlesPage) {
+                $categories = [];
+                $allCategories = $this->categoryService->all();
+                showCategories($allCategories, $categories);
+                $categorySelected = $category['id'];
+                $view = view('admin.pages.categories.components.options', compact('categories', 'categorySelected'))->render();
+                return $this->apiSendSuccess(['category' => $category, 'view' => $view], Response::HTTP_CREATED, '');
+            }
+            return $this->apiSendSuccess($category, Response::HTTP_CREATED, '');
         }
         return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
     }

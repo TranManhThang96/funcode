@@ -35,6 +35,7 @@ class SeriesRepository extends RepositoryAbstract implements SeriesRepositoryInt
         $orderBy = $params->order_by ?? 'DESC';
         $perPage = $params->per_page ?? Constant::DEFAULT_PER_PAGE;
         return $this->model
+            ->withCount('articles')
             ->when($q, function ($query, $q) {
                 return $query->where('name', 'like', "%$q%");
             })->orderBy($sortBy, $orderBy)
@@ -43,7 +44,7 @@ class SeriesRepository extends RepositoryAbstract implements SeriesRepositoryInt
 
     public function all()
     {
-        return $this->model::orderBy('id', Constant::SORT_BY_DESC)->get();
+        return $this->model::withCount('articles')->orderBy('id', Constant::SORT_BY_DESC)->get();
     }
 
 }
