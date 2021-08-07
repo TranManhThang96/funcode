@@ -182,18 +182,20 @@
                 <div class="form-group" id="link-references">
                     <label>{{__('admin_label.pages.articles.table.link_references')}}</label>
                     <div id="link-references-group" class="my-2">
-                        @foreach($article->link_references as $link)
-                            <div class="row references-item mb-2">
-                                <div class="col-9">
-                                    <input type="text" value="{{$link}}" name="link_references[]" class="form-control" data-toggle="tooltip" title="{{$link}}" readonly>
+                        @if ($article->link_references)
+                            @foreach($article->link_references as $link)
+                                <div class="row references-item mb-2">
+                                    <div class="col-9">
+                                        <input type="text" value="{{$link}}" name="link_references[]" class="form-control" data-toggle="tooltip" title="{{$link}}" readonly>
+                                    </div>
+                                    <div class="col-3 d-flex justify-content-between align-items-center actions">
+                                        <i class="mdi mdi-link btn-references-access" data-link="{{$link}}"></i>
+                                        <i class="mdi mdi-tooltip-edit btn-references-edit" data-link="{{$link}}"></i>
+                                        <i class="mdi mdi-delete btn-references-delete" data-link="{{$link}}"></i>
+                                    </div>
                                 </div>
-                                <div class="col-3 d-flex justify-content-between align-items-center actions">
-                                    <i class="mdi mdi-link btn-references-access" data-link="{{$link}}"></i>
-                                    <i class="mdi mdi-tooltip-edit btn-references-edit" data-link="{{$link}}"></i>
-                                    <i class="mdi mdi-delete btn-references-delete" data-link="{{$link}}"></i>
-                                </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </div>
                     <textarea type="text" class="form-control" id="link-references-input" rows="3"></textarea>
                 </div>

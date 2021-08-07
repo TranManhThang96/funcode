@@ -8,12 +8,14 @@ $(document).ready(function () {
       return false;
     }
   });
+
   function init() {
     $('#link-references-group .references-item').each(function (index, element) {
       let link = $(this).find("input[name='link_references[]']").val();
       links.push(link);
     });
   }
+
   let linkReferencesInput = $('#link-references-input');
   linkReferencesInput.bind("enterKey", function (e) {
     let link = e.target.value;
