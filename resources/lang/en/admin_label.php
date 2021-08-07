@@ -79,7 +79,8 @@ return [
                 'type' => 'Type',
                 'excerpt' => 'Excerpt',
                 'image' => 'Image',
-                'no_category' => 'No category'
+                'no_category' => 'No category',
+                'link_references' => 'Link references'
             ]
         ],
         'series' => [

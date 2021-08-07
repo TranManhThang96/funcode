@@ -45,7 +45,8 @@ class ArticleRequest extends FormRequest
                     'category_id' => 'required|numeric',
                     'excerpt' => 'string|nullable',
                     'content' => 'required',
-                    'image' => 'string|nullable'
+                    'image' => 'string|nullable',
+//                    'link_references.*' => 'nullable|regex:/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&\'\(\)\*\+,;=.]+$/'
                 ];
             case 'PUT':
                 return [

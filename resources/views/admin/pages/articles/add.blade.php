@@ -162,7 +162,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="excerpt-content">{{__('admin_label.pages.articles.table.image')}}</label>
+                    <label for="articles-image">{{__('admin_label.pages.articles.table.image')}}</label>
                     <div id="articles-image">
                         <input name="image" id="image-input" value="" type="hidden"/>
                         <img id="image-preview" src="{{old('image') ?? asset('assets/images/no-image.png')}}"
@@ -172,6 +172,13 @@
                         </div>
                     </div>
                     <x-custom-error field="image"/>
+                </div>
+
+                <div class="form-group" id="link-references">
+                    <label>{{__('admin_label.pages.articles.table.link_references')}}</label>
+                    <div id="link-references-group" class="my-2">
+                    </div>
+                    <textarea type="text" class="form-control" id="link-references-input" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -199,6 +206,7 @@
     <script type="text/javascript" src="{{asset('assets/libs/quill/dist/quill.min.js')}}"></script>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script type="text/javascript" src="{{asset('js/articles/add.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/articles/references.js')}}"></script>
     <script type="text/javascript">
         hljs.configure({   // optionally configure hljs
             languages: ['javascript', 'ruby', 'python', 'php']
