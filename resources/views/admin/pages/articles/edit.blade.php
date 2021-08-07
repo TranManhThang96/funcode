@@ -36,32 +36,42 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="article-category">{{__('admin_label.pages.articles.table.category')}}</label>
-                    <select class="custom-select custom-select-2 mr-sm-2 select-category-parent" name="category_id">
-                        <option selected
-                                value="{{\App\Enums\DBConstant::NO_CATEGORY}}">{{__('admin_label.pages.articles.table.no_category')}}</option>
-                        @if(isset($categories))
-                            @foreach($categories as $category)
-                                <option
-                                    value="{{$category['id']}}" {{(old('category_id') ?? $article->category_id) == $category['id'] ? 'selected' : ''}}>{{$category['label']}}</option>
-                            @endforeach
-                        @endif
-                    </select>
+                    <div class="d-flex justify-content-between">
+                        <label for="article-category">{{__('admin_label.pages.articles.table.category')}}</label>
+                        <i class="mdi mdi-plus-circle" id="btn-add-category"></i>
+                    </div>
+                    <div id="articles-categories-options">
+                        <select class="custom-select custom-select-2 mr-sm-2 select-category-option" name="category_id">
+                            <option selected
+                                    value="{{\App\Enums\DBConstant::NO_CATEGORY}}">{{__('admin_label.pages.articles.table.no_category')}}</option>
+                            @if(isset($categories))
+                                @foreach($categories as $category)
+                                    <option
+                                        value="{{$category['id']}}" {{(old('category_id') ?? $article->category_id) == $category['id'] ? 'selected' : ''}}>{{$category['label']}}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
                     <x-custom-error field="category_id"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="article-series">{{__('admin_label.pages.articles.table.series')}}</label>
-                    <select class="custom-select custom-select-2 mr-sm-2" name="series_id">
-                        <option selected value=""></option>
-                        @if(isset($series))
-                            @foreach($series as $seriesItem)
-                                <option
-                                    value="{{$seriesItem['id']}}" {{(old('series_id') ?? $article->series_id) == $seriesItem['id'] ? 'selected' : ''}}>
-                                    {{$seriesItem['name']}}</option>
-                            @endforeach
-                        @endif
-                    </select>
+                    <div class="d-flex justify-content-between">
+                        <label for="article-series">{{__('admin_label.pages.articles.table.series')}}</label>
+                        <i class="mdi mdi-plus-circle" id="btn-add-series"></i>
+                    </div>
+                    <div id="articles-series-options">
+                        <select class="custom-select custom-select-2 mr-sm-2 select-series-option" name="series_id">
+                            <option selected value=""></option>
+                            @if(isset($series))
+                                @foreach($series as $seriesItem)
+                                    <option
+                                        value="{{$seriesItem['id']}}" {{(old('series_id') ?? $article->series_id) == $seriesItem['id'] ? 'selected' : ''}}>
+                                        {{$seriesItem['name']}}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
                     <x-custom-error field="series_id"/>
                 </div>
 
@@ -173,9 +183,16 @@
                     <button type="submit" id="btn-submit"
                             class="btn btn-success">{{__('admin_label.common.button.submit')}}</button>
                 </div>
-
             </div>
     </form>
+    <div class="modal fade" id="modal-add-category" tabindex="-1" aria-labelledby="modal-add-category"
+         aria-hidden="true">
+        @include('admin.pages.categories.add')
+    </div>
+    <div class="modal fade" id="modal-add-series" tabindex="-1" aria-labelledby="modal-add-series"
+         aria-hidden="true">
+        @include('admin.pages.series.add')
+    </div>
 @endsection
 
 @section('script')

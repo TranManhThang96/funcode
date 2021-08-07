@@ -32,7 +32,7 @@ class CategoryRepository extends RepositoryAbstract implements CategoryRepositor
     {
         $q = $request->q ?? '';
         $sortBy = $request->sort_by ?? 'id';
-        $orderBy = $request->order_by ?? 'ASC';
+        $orderBy = $request->order_by ?? 'DESC';
         $perPage = $request->per_page ?? Constant::DEFAULT_PER_PAGE;
 
         return $this->model
@@ -46,7 +46,7 @@ class CategoryRepository extends RepositoryAbstract implements CategoryRepositor
     public function all($request)
     {
         $sortBy = $request->sort_by ?? 'id';
-        $orderBy = $request->order_by ?? 'ASC';
+        $orderBy = $request->order_by ?? 'DESC';
         return $this->model::withCount('articles')->orderBy($sortBy, $orderBy)->get();
     }
 

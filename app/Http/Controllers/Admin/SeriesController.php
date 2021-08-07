@@ -67,9 +67,16 @@ class SeriesController extends Controller
         // get the number of slugs that already exist.
         $countSlug = $this->seriesService->getCountSlugLikeName($slug);
         $params['slug'] = $countSlug > 0 ? $slug . '-' . Str::random(9) : $slug;
-        $result = $this->seriesService->store($params);
-        if ($result) {
-            return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');
+        $series = $this->seriesService->store($params);
+        if ($series) {
+            $isArticlesPage = isset($request->page) && ($request->page === 'articles');
+            if ($isArticlesPage) {
+                $allSeries = $this->seriesService->all();
+                $seriesSelected = $series['id'];
+                $view = view('admin.pages.series.components.options', compact('allSeries', 'seriesSelected'))->render();
+                return $this->apiSendSuccess(['series' => $series, 'view' => $view], Response::HTTP_CREATED, '');
+            }
+            return $this->apiSendSuccess($series, Response::HTTP_CREATED, '');
         }
         return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
     }
