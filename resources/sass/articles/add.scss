@@ -36,4 +36,21 @@
     height: 900px;
     max-height: 900px;
   }
+
+  #link-references {
+    #link-references-group {
+      .actions {
+        .mdi {
+          font-size: 1rem;
+          color: #277fd4;
+          cursor: pointer;
+        }
+      }
+    }
+
+    #link-references-input {
+      resize: none;
+      height: auto;
+    }
+  }
 }

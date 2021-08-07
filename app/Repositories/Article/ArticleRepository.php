@@ -54,6 +54,9 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
 
     public function create(array $attributes)
     {
+        if ($attributes['link_references']) {
+            $attributes['link_references'] = json_encode($attributes['link_references']);
+        }
         $articleCreated = $this->model->create($attributes);
         if (!empty($articleCreated->id) && $attributes['tags']) {
             $articleCreated->tags()->sync($attributes['tags']);

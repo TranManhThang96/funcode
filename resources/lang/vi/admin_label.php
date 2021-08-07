@@ -79,7 +79,8 @@ return [
                 'type' => 'Loại',
                 'excerpt' => 'Mô tả',
                 'image' => 'Hình ảnh',
-                'no_category' => 'Không có danh mục'
+                'no_category' => 'Không có danh mục',
+                'link_references' => 'Bài viết tham khảo',
             ]
         ],
         'series' => [

@@ -16,6 +16,10 @@ class Article extends Model
     protected $appends = ['status_label', 'type_label'];
     protected $table = 'articles';
 
+    protected $casts = [
+        'link_references' => 'array',
+    ];
+
     protected $fillable = [
         'title',
         'slug',
