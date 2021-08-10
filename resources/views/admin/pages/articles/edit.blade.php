@@ -182,7 +182,7 @@
                 <div class="form-group" id="link-references">
                     <label>{{__('admin_label.pages.articles.table.link_references')}}</label>
                     <div id="link-references-group" class="my-2">
-                        @if ($article->link_references)
+                        @if ($article->link_references && is_array($article->link_references))
                             @foreach($article->link_references as $link)
                                 <div class="row references-item mb-2">
                                     <div class="col-9">
