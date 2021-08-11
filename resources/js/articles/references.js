@@ -2,7 +2,7 @@ $(document).ready(function () {
   let links = [];
   let editLink = null;
   init();
-  $(window).keydown(function (e) {
+  $('#articles-frm').keydown(function (e) {
     if (e.keyCode === 13) {
       e.preventDefault();
       return false;
