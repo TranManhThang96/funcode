@@ -134,61 +134,6 @@ $(document).ready(function () {
     };
   })
 
-  // tinymce.init({
-  //   selector: 'textarea#editor',
-  //   plugins: [
-  //     "image imagetool codesample",
-  //   ],
-  //   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image | codesample",
-  //   codesample_global_prismjs: true,
-  //   file_picker_callback: function (callback, value, meta) {
-  //     let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-  //     let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
-  //
-  //     let type = 'image' === meta.filetype ? 'Images' : 'Files',
-  //       url  = '/filemanager?editor=tinymce5&type=' + type;
-  //     tinymce.activeEditor.windowManager.openUrl({
-  //       url : url,
-  //       title : 'Filemanager',
-  //       width : x * 0.8,
-  //       height : y * 0.8,
-  //       onMessage: (api, message) => {
-  //         callback(message.content);
-  //       }
-  //     });
-  //   }
-  // });
-
-  var toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-    ['image', 'blockquote', 'code-block'],
-
-    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-    [{ 'direction': 'rtl' }],                         // text direction
-
-    [{ 'size': ['8pt', '12pt', '14pt', '16pt', '18pt', '20pt', '32px'] }],  // custom dropdown
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-    [{ 'font': [] }],
-    [{ 'align': [] }],
-
-    ['clean']                                         // remove formatting button
-  ];
-
-
-  new Quill('#editor', {
-    modules: {
-      syntax: true,              // Include syntax module,
-      toolbar: toolbarOptions
-    },
-    placeholder: 'Please write your content here ...',
-    theme: 'snow'
-  });
-
   $('#btn-submit').click(function (e) {
     e.preventDefault();
     if (!$('.ql-editor').hasClass('ql-blank')) {

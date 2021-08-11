@@ -31,6 +31,9 @@ class TagService extends BaseService
     public function syncTag($tags)
     {
         $tagsId = [];
+        if (!$tags) {
+            return $tagsId;
+        }
         foreach ($tags as $tag) {
             if (is_numeric($tag) && !in_array((int)$tag, $tagsId)) {
                 $tagsId[] = (int)$tag;

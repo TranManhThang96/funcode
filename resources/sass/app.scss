@@ -155,6 +155,9 @@
 
 .invalid-border {
   border-color: $border-color-error !important;
+  & + .tox-tinymce {
+      border-color: $border-color-error !important;
+  }
 }
 
 .remove-button-corner {

@@ -15,13 +15,8 @@
             <div class="col-9 bg-white py-2">
                 <div class="card">
                     <div class="card-body">
-                        @include('admin.pages.articles.components.toolbar_editor')
-                        <div id="editor" style="height: 900px;" name="content"
-                             class="{{$errors->has('content') ? 'invalid-border' : ''}}">
-                            {!! old('content') ?? $article->content !!}
-                        </div>
+                        <textarea id="editor" name="content" rows="30" class="{{$errors->has('content') ? 'invalid-border' : ''}}">{!! old('content') ?? $article->content !!}</textarea>
                         <x-custom-error field="content"/>
-                        <textarea id="editor" name="content" rows="30" style="display: none"></textarea>
                     </div>
                 </div>
             </div>
@@ -217,40 +212,14 @@
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"
-            integrity="sha512-z+/WWfyD5tccCukM4VvONpEtLmbAm5LDu7eKiyMQJ9m7OfPEDL7gENyDRL3Yfe8XAuGsS2fS4xSMnl6d30kqGQ=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="{{asset('assets/libs/select2/dist/js/select2.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/libs/quill/dist/quill.min.js')}}"></script>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script type="text/javascript" src="{{asset('js/articles/add.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/articles/tinymce.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/articles/references.js')}}"></script>
-    <script type="text/javascript">
-        hljs.configure({   // optionally configure hljs
-            languages: ['javascript', 'ruby', 'python', 'php']
-        });
-        $(document).on('click', 'input.ql-image', function (e) {
-            e.preventDefault();
-            var route_prefix = '/filemanager';
-            window.open(route_prefix + '?type=' + 'image' || 'file', 'FileManager', 'width=1200,height=800');
-            window.SetUrl = function (items) {
-                var file_path = items.map(function (item) {
-                    return item.url;
-                }).join(',');
-                console.log('file_path', file_path);
-                quill.insertEmbed(10, 'image', `${file_path}`);
-                // $('#editor .ql-editor').append(`<p ><img src="${file_path}"></p>`)
-            };
-        })
-    </script>
 @endsection
 
 @section('css')
     <link type="text/css" href="{{asset('assets/libs/select2/dist/css/select2.min.css')}}" rel="stylesheet"/>
-    <link type="text/css" href="{{asset('assets/libs/quill/dist/quill.snow.css')}}" rel="stylesheet"/>
     <link type="text/css" href="{{asset('css/articles/add.css')}}" rel="stylesheet"/>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/monokai-sublime.min.css"
-          integrity="sha512-ade8vHOXH67Cm9z/U2vBpckPD1Enhdxl3N05ChXyFx5xikfqggrK4RrEele+VWY/iaZyfk7Bhk6CyZvlh7+5JQ=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 @endsection
