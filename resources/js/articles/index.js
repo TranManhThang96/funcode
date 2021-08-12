@@ -1,5 +1,7 @@
 require('../master');
 $(document).ready(function () {
+  $('.custom-select-2').select2();
+
   $(document).on('change', '#select-per-page', function () {
     $('#frm-search input[name="page"]').val(1);
     $('#frm-search input[name="per_page"]').val($(this).val());
