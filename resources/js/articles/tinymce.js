@@ -24,7 +24,7 @@ tinymce.init({
   pagebreak | charmap emoticons | fullscreen  preview save print |
   insertfile media pageembed template link anchor |
   a11ycheck ltr rtl | showcomments addcomment`,
-  codesample_global_prismjs: true,
+  content_css: ['/assets/libs/prism/prism.css'],
   file_picker_callback: function (callback, value, meta) {
     let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
     let y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
