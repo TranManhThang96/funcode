@@ -64,5 +64,20 @@ $(document).ready(function () {
     $('#frm-search input[name="order_by"]').val(order_by);
     getLists('/articles/search');
   })
+
+  $('input[name="daterange"]').daterangepicker({
+    autoUpdateInput: false,
+    locale: {
+      cancelLabel: 'Clear'
+    }
+  });
+
+  $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+    $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+  });
+
+  $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+    $(this).val('');
+  });
 })
 

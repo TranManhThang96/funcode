@@ -16,5 +16,15 @@
 }
 
 .search-options {
-  width: 180px !important;
+  width: 150px !important;
+  input[name='daterange'] {
+    width: 175px !important;
+  }
 }
+
+.article-tag-searched {
+  color: #fff !important;
+  background-color: #b54120 !important;
+  border-color: #aa3d1e !important;
+}
+

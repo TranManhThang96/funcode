@@ -29,7 +29,9 @@
             </td>
             <td>{{$category['slug']}}</td>
             <td>{{$category['full_path'] ?? 'N/A'}}</td>
-            <td>{{$category['articles_count']}}</td>
+            <td>
+                <a href="{{route('admin.articles.index', ['category_id' => $category['id']])}}">{{$category['articles_count']}}</a>
+            </td>
             <td>{{$category['created_at']}}</td>
             <td>{{$category['updated_at']}}</td>
             <td>

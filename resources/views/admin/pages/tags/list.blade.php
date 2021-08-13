@@ -31,7 +31,9 @@
             <td scope="row">{{($tags->currentPage() - 1) * $tags->perPage() + $loop->iteration}}</td>
             <td>{{$item->label}}</td>
             <td>{{$item->slug}}</td>
-            <td>{{$item->articles_count}}</td>
+            <td>
+                <a href="{{route('admin.articles.index', ['tag_id' => $item->id])}}">{{$item->articles_count}}</a>
+            </td>
             <td>{{date('d/m/Y H:i:s', strtotime($item->created_at))}}</td>
             <td>{{date('d/m/Y H:i:s', strtotime($item->updated_at))}}</td>
             <td>

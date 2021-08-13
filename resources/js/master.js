@@ -39,6 +39,13 @@ setError = (errors, parentElement = '') => {
  * @param page
  */
 changePage = (page, url = null, parentElement = null) => {
+  // clean uri if has query string
+  let uri = window.location.href.toString();
+  if (uri.indexOf("?") > 0) {
+    let clean_uri = uri.substring(0, uri.indexOf("?"));
+    window.history.replaceState({}, document.title, clean_uri);
+  }
+
 	if (!isNaN(page)) {
 		$('#frm-search input[name="page"]').val(page);
 	} else {
@@ -69,6 +76,13 @@ changePage = (page, url = null, parentElement = null) => {
  * @param errorFunc
  */
 getLists = (url = 'search', successFunc = null, errorFunc = null) => {
+  // clean uri if has query string
+  let uri = window.location.href.toString();
+  if (uri.indexOf("?") > 0) {
+    let clean_uri = uri.substring(0, uri.indexOf("?"));
+    window.history.replaceState({}, document.title, clean_uri);
+  }
+
 	$.ajax({
 		type: 'GET',
 		url: url,

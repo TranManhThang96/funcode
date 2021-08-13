@@ -82,6 +82,7 @@ return [
                 'no_category' => 'No category',
                 'link_references' => 'Link references',
                 'please_select' => 'Please select...',
+                'time' => 'Time'
             ]
         ],
         'series' => [

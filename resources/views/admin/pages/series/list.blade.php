@@ -30,7 +30,9 @@
             <td scope="row">{{($series->currentPage() - 1) * $series->perPage() + $loop->iteration}}</td>
             <td>{{$item->name}}</td>
             <td>{{$item->slug}}</td>
-            <td>{{$item->articles_count}}</td>
+            <td>
+                <a href="{{route('admin.articles.index', ['series_id' => $item->id])}}">{{$item->articles_count}}</a>
+            </td>
             <td>{{date('d/m/Y H:i:s', strtotime($item->created_at))}}</td>
             <td>{{date('d/m/Y H:i:s', strtotime($item->updated_at))}}</td>
             <td>

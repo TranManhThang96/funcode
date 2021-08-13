@@ -25,6 +25,7 @@ return [
             'delete' => 'Xóa',
             'empty_data' => 'Không có dữ liệu!',
             'please_select' => 'Vui lòng chọn...',
+            'time' => 'Thời gian'
         ],
         'modal' => [
             'close' => 'Đóng',
