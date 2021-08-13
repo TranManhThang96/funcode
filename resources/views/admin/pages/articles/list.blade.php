@@ -58,7 +58,7 @@
             <td>{{$article->type_label ?? ''}}</td>
             <td>
                 @foreach($article->tags as $tag)
-                    <span class="article-tag">{{$tag->label}}</span>
+                    <span class="article-tag {{request()->tag_id == $tag['id'] ? 'article-tag-searched' : ''}}">{{$tag->label}}</span>
                 @endforeach
             </td>
             <td>{{date('d/m/Y H:i:s', strtotime($article->created_at))}}</td>

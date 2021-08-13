@@ -40,8 +40,13 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
+        $categories = [];
+        $allCategories = $this->categoryService->all();
+        showCategories($allCategories, $categories);
+        $tags = $this->tagService->all();
+        $series = $this->seriesService->all();
         $articles = $this->articleService->index($request);
-        return view('admin.pages.articles.index', compact('articles'));
+        return view('admin.pages.articles.index', compact('articles', 'categories', 'tags', 'series'));
     }
 
     /**

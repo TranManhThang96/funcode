@@ -14,3 +14,17 @@
   vertical-align: bottom;
   white-space: nowrap;
 }
+
+.search-options {
+  width: 150px !important;
+  input[name='daterange'] {
+    width: 175px !important;
+  }
+}
+
+.article-tag-searched {
+  color: #fff !important;
+  background-color: #b54120 !important;
+  border-color: #aa3d1e !important;
+}
+

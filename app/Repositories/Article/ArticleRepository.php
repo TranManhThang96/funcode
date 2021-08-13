@@ -34,6 +34,12 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
         $sortBy = $params->sort_by ?? 'id';
         $orderBy = $params->order_by ?? 'DESC';
         $perPage = $params->per_page ?? Constant::DEFAULT_PER_PAGE;
+        $categoryId = $params->category_id ?? '';
+        $seriesId = $params->series_id ?? '';
+        $tagId = $params->tag_id ?? '';
+        $status = $params->status ?? '';
+        $type = $params->type ?? '';
+        $dateRange = $params->daterange ?? '';
 
         return $this->model
             ->with('category:id,name')
@@ -41,7 +47,28 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
             ->with('tags')
             ->when($q, function ($query, $q) {
                 return $query->where('title', 'like', "%$q%");
-            })->orderBy($sortBy, $orderBy)
+            })
+            ->when($categoryId, function ($query, $categoryId) {
+                return $query->where('category_id', '=', $categoryId);
+            })
+            ->when($seriesId, function ($query, $seriesId) {
+                return $query->where('series_id', '=', $seriesId);
+            })
+            ->when($tagId, function ($query, $tagId) {
+                return $query->whereHas('tags', function ($q) use ($tagId) {
+                    $q->where('tag_id', '=', $tagId);
+                });
+            })
+            ->when($status, function ($query, $status) {
+                return $query->where('status', '=', $status);
+            })
+            ->when($type, function ($query, $type) {
+                return $query->where('type', '=', $type);
+            })
+            ->when($dateRange, function ($query, $dateRange) {
+                return $query->timeBetween($dateRange);
+            })
+            ->orderBy($sortBy, $orderBy)
             ->paginate($perPage);
     }
 
