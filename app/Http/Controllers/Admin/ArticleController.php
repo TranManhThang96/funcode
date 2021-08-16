@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\Constant;
+use App\Enums\DBConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ArticleRequest;
 use App\Services\ArticleService;
@@ -36,7 +38,8 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
@@ -47,7 +50,17 @@ class ArticleController extends Controller
         $series = $this->seriesService->all();
         $articles = $this->articleService->index($request);
         $articlesColumns = $this->articlesColumns();
-        return view('admin.pages.articles.index', compact('articles', 'categories', 'tags', 'series', 'articlesColumns'));
+        $articlesStatus = array_values($this->articlesStatus());
+        $articlesType = array_values($this->articlesType());
+        return view('admin.pages.articles.index', compact(
+                'articles',
+                'categories',
+                'tags',
+                'series',
+                'articlesColumns',
+                'articlesStatus',
+                'articlesType')
+        );
     }
 
     /**
@@ -64,7 +77,7 @@ class ArticleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -73,7 +86,15 @@ class ArticleController extends Controller
         showCategories($allCategories, $categories);
         $tags = $this->tagService->all();
         $series = $this->seriesService->all();
-        return view('admin.pages.articles.add', compact('categories', 'tags', 'series'));
+        $articlesStatus = array_values($this->articlesStatus());
+        $articlesType = array_values($this->articlesType());
+        return view('admin.pages.articles.add', compact(
+            'categories',
+            'tags',
+            'series',
+            'articlesStatus',
+            'articlesType')
+        );
     }
 
     /**
@@ -116,7 +137,7 @@ class ArticleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
@@ -126,7 +147,16 @@ class ArticleController extends Controller
         $tags = $this->tagService->all();
         $series = $this->seriesService->all();
         $article = $this->articleService->find($id);
-        return view('admin.pages.articles.edit', compact('categories', 'tags', 'series', 'article'));
+        $articlesStatus = array_values($this->articlesStatus());
+        $articlesType = array_values($this->articlesType());
+        return view('admin.pages.articles.edit', compact(
+            'categories',
+            'tags',
+            'series',
+            'article',
+            'articlesStatus',
+            'articlesType')
+        );
     }
 
     /**
@@ -230,4 +260,55 @@ class ArticleController extends Controller
         $articlesColumns = $request->session()->get('articles_columns', []);
         return $this->apiSendSuccess(['articles_columns' => $articlesColumns], Response::HTTP_OK);
     }
+
+    /**
+     * get status contanst of articles.
+     *
+     * @return array[]
+     */
+    private function articlesStatus(): array
+    {
+        return [
+            'publish' => [
+                'value' => DBConstant::ARTICLE_PUBLISH,
+                'label' => Constant::ARTICLE_PUBLISH_LABEL
+            ],
+            'draft' => [
+                'value' => DBConstant::ARTICLE_DRAFT,
+                'label' => Constant::ARTICLE_DRAFT_LABEL
+            ],
+            'pending' => [
+                'value' => DBConstant::ARTICLE_PENDING,
+                'label' => Constant::ARTICLE_PENDING_LABEL
+            ],
+        ];
+    }
+
+    /**
+     * get type contanst of articles.
+     *
+     * @return array[]
+     */
+    private function articlesType(): array
+    {
+        return [
+            'article' => [
+                'value' => DBConstant::ARTICLE,
+                'label' => Constant::ARTICLE_LABEL
+            ],
+            'learn' => [
+                'value' => DBConstant::LEARN,
+                'label' => Constant::LEARN_LABEL
+            ],
+            'tip' => [
+                'value' => DBConstant::TIP,
+                'label' => Constant::TIP_LABEL
+            ],
+            'copy' => [
+                'value' => DBConstant::COPY,
+                'label' => Constant::COPY_LABEL
+            ]
+        ];
+    }
+
 }

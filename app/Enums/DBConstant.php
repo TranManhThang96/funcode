@@ -16,8 +16,7 @@ class DBConstant extends BaseEnum
     // [articles status]
     const ARTICLE_PUBLISH = 1;
     const ARTICLE_DRAFT = 2;
-    const ARTICLE_DELETED = 3;
-    const ARTICLE_PENDING = 4;
+    const ARTICLE_PENDING = 3;
 
     // [articles type]
     const ARTICLE = 1;
