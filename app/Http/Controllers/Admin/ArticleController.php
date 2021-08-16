@@ -46,7 +46,8 @@ class ArticleController extends Controller
         $tags = $this->tagService->all();
         $series = $this->seriesService->all();
         $articles = $this->articleService->index($request);
-        return view('admin.pages.articles.index', compact('articles', 'categories', 'tags', 'series'));
+        $articlesColumns = $this->articlesColumns();
+        return view('admin.pages.articles.index', compact('articles', 'categories', 'tags', 'series', 'articlesColumns'));
     }
 
     /**
@@ -168,5 +169,65 @@ class ArticleController extends Controller
             return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, 'kk');
         }
         return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @return array[]
+     */
+    private function articlesColumns(): array
+    {
+        return [
+            'title' => [
+                'label' => __('admin_label.pages.articles.table.title'),
+                'class' => 'articles-title-column'
+            ],
+            'slug' => [
+                'label' => __('admin_label.pages.articles.table.slug'),
+                'class' => 'articles-slug-column'
+            ],
+            'image' => [
+                'label' => __('admin_label.pages.articles.table.image'),
+                'class' => 'articles-image-column'
+            ],
+            'category' => [
+                'label' => __('admin_label.pages.articles.table.category'),
+                'class' => 'articles-category-column'
+            ],
+            'series' => [
+                'label' => __('admin_label.pages.articles.table.series'),
+                'class' => 'articles-series-column'
+            ],
+            'status' => [
+                'label' => __('admin_label.pages.articles.table.status'),
+                'class' => 'articles-status-column'
+            ],
+            'type' => [
+                'label' => __('admin_label.pages.articles.table.type'),
+                'class' => 'articles-type-column'
+            ],
+            'tag' => [
+                'label' => __('admin_label.pages.articles.table.tag'),
+                'class' => 'articles-tag-column'
+            ],
+            'created_at' => [
+                'label' => __('admin_label.common.table.created_at'),
+                'class' => 'articles-created-at-column'
+            ],
+            'updated_at' => [
+                'label' => __('admin_label.common.table.updated_at'),
+                'class' => 'articles-updated-at-column'
+            ],
+        ];
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateArticlesColumns(Request $request)
+    {
+        $request->session()->put('articles_columns', $request->articles_columns);
+        $articlesColumns = $request->session()->get('articles_columns', []);
+        return $this->apiSendSuccess(['articles_columns' => $articlesColumns], Response::HTTP_OK);
     }
 }

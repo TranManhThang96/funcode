@@ -29,6 +29,17 @@
                 <span>{{__('admin_label.common.entries.entries')}}</span>
             </div>
         </div>
+        <div class="col-md-6">
+            <div id="show-columns-container" class="d-flex justify-content-end">
+                <div class="toggle-options-button">
+                    <i class="mdi mdi-table-large"></i>
+                </div>
+
+                <div class="toggle-options hidden">
+                    @include('admin.pages.articles.components.columns')
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row mt-2">
         <div class="col-12">
@@ -150,6 +161,7 @@
     <script type="text/javascript" src="{{asset('assets/libs/select2/dist/js/select2.min.js')}}"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/articles/columns.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/articles/index.js')}}"></script>
 @endsection
 
