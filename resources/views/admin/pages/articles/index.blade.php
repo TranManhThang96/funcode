@@ -29,6 +29,17 @@
                 <span>{{__('admin_label.common.entries.entries')}}</span>
             </div>
         </div>
+        <div class="col-md-6">
+            <div id="show-columns-container" class="d-flex justify-content-end">
+                <div class="toggle-options-button">
+                    <i class="mdi mdi-table-large"></i>
+                </div>
+
+                <div class="toggle-options hidden">
+                    @include('admin.pages.articles.components.columns')
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row mt-2">
         <div class="col-12">
@@ -38,14 +49,10 @@
                     <div class="ml-2 search-options">
                         <select class="custom-select custom-select-2 mr-sm-2" name="status">
                             <option value="">{{__('admin_label.common.table.please_select')}}</option>
-                            <option
-                                value="{{\App\Enums\DBConstant::ARTICLE_DRAFT}}" {{request()->status == \App\Enums\DBConstant::ARTICLE_DRAFT ? 'selected' : ''}}>{{\App\Enums\Constant::ARTICLE_DRAFT_LABEL}}</option>
-                            <option
-                                value="{{\App\Enums\DBConstant::ARTICLE_PUBLISH}}" {{request()->status == \App\Enums\DBConstant::ARTICLE_PUBLISH ? 'selected' : ''}}>{{\App\Enums\Constant::ARTICLE_PUBLISH_LABEL}}</option>
-                            <option
-                                value="{{\App\Enums\DBConstant::ARTICLE_DELETED}}" {{request()->status == \App\Enums\DBConstant::ARTICLE_DELETED ? 'selected' : ''}}>{{\App\Enums\Constant::ARTICLE_DELETED_LABEL}}</option>
-                            <option
-                                value="{{\App\Enums\DBConstant::ARTICLE_PENDING}}" {{request()->status == \App\Enums\DBConstant::ARTICLE_PENDING ? 'selected' : ''}}>{{\App\Enums\Constant::ARTICLE_PENDING_LABEL}}</option>
+                            @foreach ($articlesStatus as $status)
+                                <option
+                                    value="{{$status['value']}}" {{request()->status == $status['value'] ? 'selected' : ''}}>{{$status['label']}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -55,14 +62,10 @@
                     <div class="ml-2 search-options">
                         <select class="custom-select custom-select-2 mr-sm-2" name="type">
                             <option value="">{{__('admin_label.common.table.please_select')}}</option>
-                            <option
-                                value="{{\App\Enums\DBConstant::LEARN}}" {{request()->status == \App\Enums\DBConstant::LEARN ? 'selected' : ''}}>{{\App\Enums\Constant::LEARN_LABEL}}</option>
-                            <option
-                                value="{{\App\Enums\DBConstant::ARTICLE}}" {{request()->status == \App\Enums\DBConstant::ARTICLE ? 'selected' : ''}}>{{\App\Enums\Constant::ARTICLE_LABEL}}</option>
-                            <option
-                                value="{{\App\Enums\DBConstant::TIP}}" {{request()->status == \App\Enums\DBConstant::TIP ? 'selected' : ''}}>{{\App\Enums\Constant::TIP_LABEL}}</option>
-                            <option
-                                value="{{\App\Enums\DBConstant::COPY}}" {{request()->status == \App\Enums\DBConstant::COPY ? 'selected' : ''}}>{{\App\Enums\Constant::COPY_LABEL}}</option>
+                            @foreach ($articlesType as $type)
+                                <option
+                                    value="{{$type['value']}}" {{request()->status == $type['value'] ? 'selected' : ''}}>{{$type['label']}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -150,6 +153,7 @@
     <script type="text/javascript" src="{{asset('assets/libs/select2/dist/js/select2.min.js')}}"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/articles/columns.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/articles/index.js')}}"></script>
 @endsection
 

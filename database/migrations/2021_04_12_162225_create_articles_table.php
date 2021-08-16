@@ -23,7 +23,7 @@ class CreateArticlesTable extends Migration
             $table->string('excerpt')->nullable()->comment('short description');
             $table->text('content');
             $table->string('image')->nullable();
-            $table->tinyInteger('status')->default(1)->comment('1:publish, 2:draft, 3:deleted, 4:pending');
+            $table->tinyInteger('status')->default(1)->comment('1:publish, 2:draft, 3:pending');
             $table->tinyInteger('type')->default(1)->comment('1:article, 2:learn, 3:tips');
             $table->json('link_references')->nullable();
             $table->integer('created_by')->nullable();

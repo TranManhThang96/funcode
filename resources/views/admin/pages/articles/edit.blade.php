@@ -15,7 +15,8 @@
             <div class="col-9 bg-white py-2">
                 <div class="card">
                     <div class="card-body">
-                        <textarea id="editor" name="content" rows="30" class="{{$errors->has('content') ? 'invalid-border' : ''}}">{!! old('content') ?? $article->content !!}</textarea>
+                        <textarea id="editor" name="content" rows="30"
+                                  class="{{$errors->has('content') ? 'invalid-border' : ''}}">{!! old('content') ?? $article->content !!}</textarea>
                         <x-custom-error field="content"/>
                     </div>
                 </div>
@@ -86,71 +87,29 @@
 
                 <div class="form-group">
                     <label for="excerpt-content">{{__('admin_label.pages.articles.table.status')}}</label></br/>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                               {{(old('status') ?? $article->status) == \App\Enums\DBConstant::ARTICLE_DRAFT ? 'checked' : ''}} name="status"
-                               id="status-draft"
-                               value="{{\App\Enums\DBConstant::ARTICLE_DRAFT}}">
-                        <label class="form-check-label"
-                               for="status-draft">{{\App\Enums\Constant::ARTICLE_DRAFT_LABEL}}</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                               {{(old('status') ?? $article->status) == \App\Enums\DBConstant::ARTICLE_PUBLISH ? 'checked' : ''}} name="status"
-                               id="status-publish"
-                               value="{{\App\Enums\DBConstant::ARTICLE_PUBLISH}}">
-                        <label class="form-check-label"
-                               for="status-publish">{{\App\Enums\Constant::ARTICLE_PUBLISH_LABEL}}</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                               {{(old('status') ?? $article->status) == \App\Enums\DBConstant::ARTICLE_DELETED ? 'checked' : ''}} name="status"
-                               id="status-deleted"
-                               value="{{\App\Enums\DBConstant::ARTICLE_DELETED}}">
-                        <label class="form-check-label"
-                               for="status-deleted">{{\App\Enums\Constant::ARTICLE_DELETED_LABEL}}</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                               {{(old('status') ?? $article->status) == \App\Enums\DBConstant::ARTICLE_PENDING ? 'checked' : ''}} name="status"
-                               id="status-pending"
-                               value="{{\App\Enums\DBConstant::ARTICLE_PENDING}}">
-                        <label class="form-check-label"
-                               for="status-pending">{{\App\Enums\Constant::ARTICLE_PENDING_LABEL}}</label>
-                    </div>
+                    @foreach ($articlesStatus as $status)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio"
+                                   {{(old('status') ?? $article->status) == $status['value'] ? 'checked' : ''}} name="status"
+                                   id="status-{{$status['value']}}"
+                                   value="{{$status['value']}}">
+                            <label class="form-check-label"
+                                   for="status-{{$status['value']}}">{{$status['label']}}</label>
+                        </div>
+                    @endforeach
                 </div>
 
                 <div class="form-group">
                     <label for="excerpt-content">{{__('admin_label.pages.articles.table.type')}}</label></br/>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                               {{(old('type') ?? $article->type) == \App\Enums\DBConstant::LEARN ? 'checked' : ''}} checked
-                               name="type" id="type-learn"
-                               value="{{\App\Enums\DBConstant::LEARN}}">
-                        <label class="form-check-label" for="type-learn">{{\App\Enums\Constant::LEARN_LABEL}}</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                               {{(old('type') ?? $article->type) == \App\Enums\DBConstant::ARTICLE ? 'checked' : ''}} name="type"
-                               id="type-article"
-                               value="{{\App\Enums\DBConstant::ARTICLE}}">
-                        <label class="form-check-label"
-                               for="type-article">{{\App\Enums\Constant::ARTICLE_LABEL}}</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                               {{(old('type') ?? $article->type) == \App\Enums\DBConstant::TIP ? 'checked' : ''}} name="type"
-                               id="type-tip"
-                               value="{{\App\Enums\DBConstant::TIP}}">
-                        <label class="form-check-label" for="type-tip">{{\App\Enums\Constant::TIP_LABEL}}</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                               {{(old('type') ?? $article->type) == \App\Enums\DBConstant::COPY ? 'checked' : ''}} name="type"
-                               id="type-copy"
-                               value="{{\App\Enums\DBConstant::COPY}}">
-                        <label class="form-check-label" for="type-copy">{{\App\Enums\Constant::COPY_LABEL}}</label>
-                    </div>
+                    @foreach ($articlesType as $type)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio"
+                                   {{(old('type') ?? $article->type) == $type['value'] ? 'checked' : ''}} name="type"
+                                   id="type-{{$type['value']}}"
+                                   value="{{$type['value']}}">
+                            <label class="form-check-label" for="type-{{$type['value']}}">{{$type['label']}}</label>
+                        </div>
+                    @endforeach
                 </div>
 
                 <div class="form-group">
@@ -181,7 +140,8 @@
                             @foreach($article->link_references as $link)
                                 <div class="row references-item mb-2">
                                     <div class="col-9">
-                                        <input type="text" value="{{$link}}" name="link_references[]" class="form-control" data-toggle="tooltip" title="{{$link}}" readonly>
+                                        <input type="text" value="{{$link}}" name="link_references[]"
+                                               class="form-control" data-toggle="tooltip" title="{{$link}}" readonly>
                                     </div>
                                     <div class="col-3 d-flex justify-content-between align-items-center actions">
                                         <i class="mdi mdi-link btn-references-access" data-link="{{$link}}"></i>

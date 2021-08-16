@@ -22,6 +22,7 @@ Route::domain(config('app.subdomain_admin'))->name('admin.')->group(function () 
         Route::get('/change-locale', [\App\Http\Controllers\Admin\HomeController::class, 'changeLocale'])->name('locale');
         Route::get('/categories/search', [\App\Http\Controllers\Admin\CategoryController::class, 'search'])->name('categories.search');
         Route::resource('/categories', CategoryController::class);
+        Route::post('/articles/columns', [\App\Http\Controllers\Admin\ArticleController::class, 'updateArticlesColumns'])->name('articles.columns');
         Route::get('/articles/search', [\App\Http\Controllers\Admin\ArticleController::class, 'search'])->name('articles.search');
         Route::resource('/articles', ArticleController::class);
         Route::get('/series/search', [\App\Http\Controllers\Admin\SeriesController::class, 'search'])->name('series.search');

@@ -4,7 +4,8 @@ return [
     'common' => [
         'button' => [
             'search' => 'Search',
-            'submit' => 'Submit'
+            'submit' => 'Submit',
+            'apply' => 'Apply'
         ],
         'entries' => [
             'show' => 'Show',
@@ -23,7 +24,9 @@ return [
             'action' => 'Action',
             'edit' => 'Edit',
             'delete' => 'Delete',
-            'empty_data' => 'Empty data!'
+            'empty_data' => 'Empty data!',
+            'time' => 'Time',
+            'all' => 'All',
         ],
         'modal' => [
             'close' => 'Close',

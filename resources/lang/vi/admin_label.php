@@ -4,7 +4,8 @@ return [
     'common' => [
         'button' => [
             'search' => 'Tìm kiếm',
-            'submit' => 'Lưu'
+            'submit' => 'Lưu',
+            'apply' => 'Áp dụng'
         ],
         'entries' => [
             'show' => 'Hiển thị',
@@ -25,7 +26,8 @@ return [
             'delete' => 'Xóa',
             'empty_data' => 'Không có dữ liệu!',
             'please_select' => 'Vui lòng chọn...',
-            'time' => 'Thời gian'
+            'time' => 'Thời gian',
+            'all' => 'Tất cả'
         ],
         'modal' => [
             'close' => 'Đóng',

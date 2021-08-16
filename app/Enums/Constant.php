@@ -55,9 +55,8 @@ class Constant extends BaseEnum
     // [articles status]
     const ARTICLE_PUBLISH_LABEL = 'Publish';
     const ARTICLE_DRAFT_LABEL = 'Draft';
-    const ARTICLE_DELETED_LABEL = 'Deleted';
     const ARTICLE_PENDING_LABEL = 'Pending';
-    const ARTICLE_STATUS_LABEL_DATA = ['', 'Publish', 'Draft', 'Deleted', 'Pending'];
+    const ARTICLE_STATUS_LABEL_DATA = ['', 'Publish', 'Draft', 'Pending'];
 
     // [articles type]
     const ARTICLE_LABEL = 'Article';

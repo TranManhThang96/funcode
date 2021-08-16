@@ -25,6 +25,7 @@ mix.js('resources/js/articles/add', 'public/js/articles');
 mix.js('resources/js/articles/index', 'public/js/articles');
 mix.js('resources/js/articles/tinymce', 'public/js/articles');
 mix.js('resources/js/articles/references', 'public/js/articles');
+mix.js('resources/js/articles/columns', 'public/js/articles');
 mix.sass('resources/sass/articles/add.scss', 'public/css/articles');
 mix.sass('resources/sass/articles/index.scss', 'public/css/articles');
 
