@@ -22,7 +22,8 @@ class SeriesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
@@ -74,11 +75,11 @@ class SeriesController extends Controller
                 $allSeries = $this->seriesService->all();
                 $seriesSelected = $series['id'];
                 $view = view('admin.pages.series.components.options', compact('allSeries', 'seriesSelected'))->render();
-                return $this->apiSendSuccess(['series' => $series, 'view' => $view], Response::HTTP_CREATED, '');
+                return $this->apiSendSuccess(['series' => $series, 'view' => $view], Response::HTTP_CREATED, __('admin_label.pages.series.messages.add_series_successful'));
             }
-            return $this->apiSendSuccess($series, Response::HTTP_CREATED, '');
+            return $this->apiSendSuccess($series, Response::HTTP_CREATED, __('admin_label.pages.series.messages.add_series_successful'));
         }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.series.messages.add_series_failure'));
     }
 
     /**
@@ -123,9 +124,9 @@ class SeriesController extends Controller
         $params['slug'] = $countSlug > 0 ? $slug . '-' . Str::random(9) : $slug;
         $result = $this->seriesService->update($id, $params);
         if ($result) {
-            return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');
+            return $this->apiSendSuccess($result, Response::HTTP_OK, __('admin_label.pages.series.messages.update_series_successful'));
         }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.series.messages.update_series_failure'));
     }
 
     /**
@@ -139,8 +140,8 @@ class SeriesController extends Controller
     {
         $isDeleted = $this->seriesService->delete($id);
         if ($isDeleted) {
-            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, 'kk');
+            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, __('admin_label.pages.series.messages.delete_series_successful'));
         }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.series.messages.delete_series_failure'));
     }
 }

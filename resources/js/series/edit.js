@@ -29,7 +29,7 @@ $(document).ready(function () {
       data: $('#form-edit-series').serialize(),
       success: function (response) {
         modalEditSeries.modal('hide');
-        toastr.success('Update series thành công!', 'Thông báo')
+        toastr.success(response.msg);
         $('#frm-search input[name="page"]').val(1);
         getLists('/series/search');
       },
@@ -38,7 +38,8 @@ $(document).ready(function () {
           let errors = jqXHR.responseJSON.errors;
           setError(errors, '#form-edit-series');
         } else {
-          toastr.error('Thêm series thất bại!', 'Lỗi')
+          modalEditSeries.modal('hide');
+          toastr.error(jqXHR.responseJSON.userMsg);
         }
       }
     });

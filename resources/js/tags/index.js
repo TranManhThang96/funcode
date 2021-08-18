@@ -27,11 +27,11 @@ $(document).ready(function () {
           type: 'DELETE',
           loading: true,
           success: function (response) {
-            toastr.success('Xóa tag thành công!', 'Thông báo');
+            toastr.success(response.msg);
             getLists('/tags/search');
           },
           error: function (jqXHR, textStatus, errorThrown) {
-            toastr.success('Xóa tag thất bại!', 'Thông báo')
+            toastr.error(jqXHR.responseJSON.userMsg);
           }
         });
       }

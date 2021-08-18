@@ -70,9 +70,9 @@ class TagController extends Controller
         $params['slug'] = $countSlug > 0 ? $slug . '-' . (int)($countSlug + 1) : $slug;
         $result = $this->tagService->store($params);
         if ($result) {
-            return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');
+            return $this->apiSendSuccess($result, Response::HTTP_CREATED, __('admin_label.pages.tags.messages.add_tag_successful'));
         }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.tags.messages.add_tag_failure'));
     }
 
     /**
@@ -117,9 +117,9 @@ class TagController extends Controller
         $params['slug'] = $countSlug > 0 ? $slug . '-' . date("YmdHis",time()) : $slug;
         $result = $this->tagService->update($id, $params);
         if ($result) {
-            return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');
+            return $this->apiSendSuccess($result, Response::HTTP_OK, __('admin_label.pages.tags.messages.update_tag_successful'));
         }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.tags.messages.update_tag_failure'));
     }
 
     /**
@@ -133,8 +133,8 @@ class TagController extends Controller
     {
         $isDeleted = $this->tagService->delete($id);
         if ($isDeleted) {
-            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, 'kk');
+            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, __('admin_label.pages.tags.messages.delete_tag_successful'));
         }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.tags.messages.delete_tag_failure'));
     }
 }

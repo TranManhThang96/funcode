@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -46,7 +47,6 @@ class ArticleRequest extends FormRequest
                     'excerpt' => 'string|nullable',
                     'content' => 'required',
                     'image' => 'string|nullable',
-//                    'link_references.*' => 'nullable|regex:/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&\'\(\)\*\+,;=.]+$/'
                 ];
             case 'PUT':
                 return [
@@ -59,6 +59,33 @@ class ArticleRequest extends FormRequest
             case 'PATCH':
             default:
                 break;
+        }
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        if (App::getLocale() === 'vi') {
+            switch ($this->method()) {
+                case 'GET':
+                case 'DELETE':
+                    return [];
+                case 'POST':
+                case 'PUT':
+                    return [
+                        'title.required' => 'Vui lòng tên bài viết.',
+                        'title.unique' => 'Tên bài viết đã tồn tại.',
+                        'category_id.required' => 'Vui lòng chọn danh mục.',
+                        'content.required' => 'Vui lòng nhập nội dung bài viết.'
+                    ];
+                case 'PATCH':
+                default:
+                    break;
+            }
+        } else {
+            return parent::messages();
         }
     }
 }
