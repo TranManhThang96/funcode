@@ -32,6 +32,12 @@ return [
         'modal' => [
             'close' => 'Đóng',
             'save' => 'Lưu' //Save changes
+        ],
+        'confirm_modal' => [
+            'title' => 'Thông báo',
+            'body' => 'Bạn có chắc chắn điều này?',
+            'ok_button' => 'Đồng ý',
+            'cancel_button' => 'Không'
         ]
     ],
     'pages' => [
@@ -58,6 +64,16 @@ return [
                 'slug' => 'Slug',
                 'full_path' => 'Đường dẫn',
                 'articles_count' => 'Số lượng bài viết',
+            ],
+            'messages' => [
+                'add_category_successful' => 'Thêm danh mục thành công.',
+                'add_category_failure' => 'Thêm danh mục thất bại.',
+                'update_category_successful' => 'Sửa danh mục thành công.',
+                'update_category_failure' => 'Sửa danh mục thất bại.',
+                'delete_category_successful' => 'Danh mục đã được xóa.',
+                'delete_category_failure' => 'Xóa danh mục lỗi.',
+                'delete_category_has_articles' => 'Không thể xóa danh mục có bài viết.',
+                'delete_category_has_subcategories' => 'Không thể xóa danh mục có danh mục con.',
             ]
         ],
         'articles' => [
@@ -85,6 +101,14 @@ return [
                 'image' => 'Hình ảnh',
                 'no_category' => 'Không có danh mục',
                 'link_references' => 'Bài viết tham khảo',
+            ],
+            'messages' => [
+                'add_articles_successful' => 'Thêm bài viết thành công.',
+                'add_articles_failure' => 'Thêm bài viết thất bại.',
+                'update_articles_successful' => 'Sửa bài viết thành công.',
+                'update_articles_failure' => 'Sửa bài viết thất bại.',
+                'delete_articles_successful' => 'Bài viết đã được xóa.',
+                'delete_articles_failure' => 'Xóa bài viết bị lỗi.',
             ]
         ],
         'series' => [
@@ -101,6 +125,14 @@ return [
                 'label' => 'Tên series',
                 'slug' => 'Slug',
                 'articles_count' => 'Số lượng bài viết',
+            ],
+            'messages' => [
+                'add_series_successful' => 'Thêm series thành công.',
+                'add_series_failure' => 'Thêm series thất bại.',
+                'update_series_successful' => 'Sửa series thành công.',
+                'update_series_failure' => 'Sửa series thất bại.',
+                'delete_series_successful' => 'Series đã được xóa.',
+                'delete_series_failure' => 'Xóa series bị lỗi.',
             ]
         ],
         'tags' => [
@@ -117,6 +149,14 @@ return [
                 'label' => 'Tên tag',
                 'slug' => 'Slug',
                 'articles_count' => 'Số lượng bài viết',
+            ],
+            'messages' => [
+                'add_tag_successful' => 'Thêm tag thành công.',
+                'add_tag_failure' => 'Thêm tag thất bại.',
+                'update_tag_successful' => 'Sửa tag thành công.',
+                'update_tag_failure' => 'Sửa tag thất bại.',
+                'delete_tag_successful' => 'Tag đã được xóa.',
+                'delete_tag_failure' => 'Xóa tag bị lỗi.',
             ]
         ]
     ],

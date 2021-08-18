@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -45,11 +46,39 @@ class TagRequest extends FormRequest
                 ];
             case 'PUT':
                 return [
-                    'label' => ['nullable', 'string', Rule::unique('tags')->ignore($this->id)],
+                    'label' => ['nullable', Rule::unique('tags')->ignore($this->id)],
                 ];
             case 'PATCH':
             default:
                 break;
+        }
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        if (App::getLocale() === 'vi') {
+            switch ($this->method()) {
+                case 'GET':
+                case 'DELETE':
+                    return [];
+                case 'POST':
+                    return [
+                        'label.required' => 'Vui lòng nhập tag.',
+                        'label.unique' => 'Tag đã tồn tại.',
+                    ];
+                case 'PUT':
+                    return [
+                        'label.unique' => 'Tag đã tồn tại.',
+                    ];
+                case 'PATCH':
+                default:
+                    break;
+            }
+        } else {
+            return parent::messages();
         }
     }
 }

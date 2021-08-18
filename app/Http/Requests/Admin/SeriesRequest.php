@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -33,7 +34,7 @@ class SeriesRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         switch ($this->method()) {
             case 'GET':
@@ -45,11 +46,39 @@ class SeriesRequest extends FormRequest
                 ];
             case 'PUT':
                 return [
-                    'name' => ['nullable', 'string', Rule::unique('series')->ignore($this->id)],
+                    'name' => ['nullable', Rule::unique('series')->ignore($this->id)],
                 ];
             case 'PATCH':
             default:
                 break;
+        }
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        if (App::getLocale() === 'vi') {
+            switch ($this->method()) {
+                case 'GET':
+                case 'DELETE':
+                    return [];
+                case 'POST':
+                    return [
+                        'name.required' => 'Vui lòng nhập tên series.',
+                        'name.unique' => 'Tên series đã tồn tại.',
+                    ];
+                case 'PUT':
+                    return [
+                        'name.unique' => 'Tên series đã tồn tại.',
+                    ];
+                case 'PATCH':
+                default:
+                    break;
+            }
+        } else {
+            return parent::messages();
         }
     }
 }

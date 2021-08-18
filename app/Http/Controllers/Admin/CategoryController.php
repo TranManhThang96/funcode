@@ -38,9 +38,10 @@ class CategoryController extends Controller
         return view('admin.pages.categories.index', compact('categories'));
     }
 
+
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\JsonResponse
      */
     public function search(Request $request)
     {
@@ -49,7 +50,6 @@ class CategoryController extends Controller
         if (!empty($q)) {
             //show normal
             $categories = $this->categoryService->index($request);
-            $view = view('admin.pages.categories.list', compact('categories'))->render();
         } else {
             //show full path
             $allCategories = $this->categoryService->all($request);
@@ -61,8 +61,8 @@ class CategoryController extends Controller
                 });
             }
             $categories = (new CollectionPagination($categories))->paginate((int)$request->per_page ?? Constant::DEFAULT_PER_PAGE);
-            $view = view('admin.pages.categories.list', compact('categories'))->render();
         }
+        $view = view('admin.pages.categories.list', compact('categories'))->render();
         return $this->apiSendSuccess($view, Response::HTTP_OK);
     }
 
@@ -106,9 +106,9 @@ class CategoryController extends Controller
                 $view = view('admin.pages.categories.components.options', compact('categories', 'categorySelected'))->render();
                 return $this->apiSendSuccess(['category' => $category, 'view' => $view], Response::HTTP_CREATED, '');
             }
-            return $this->apiSendSuccess($category, Response::HTTP_CREATED, '');
+            return $this->apiSendSuccess($category, Response::HTTP_CREATED, __('admin_label.pages.categories.messages.add_category_successful'));
         }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.categories.messages.add_category_successful'));
     }
 
     /**
@@ -155,9 +155,9 @@ class CategoryController extends Controller
         $params['slug'] = $countSlug > 0 ? $slug . '-' . ($countSlug + 1) : $slug;
         $result = $this->categoryService->update($id, $params);
         if ($result) {
-            return $this->apiSendSuccess($result, Response::HTTP_CREATED, '');
+            return $this->apiSendSuccess($result, Response::HTTP_OK, __('admin_label.pages.categories.messages.update_category_successful'));
         }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.categories.messages.update_category_failure'));
     }
 
     /**
@@ -170,14 +170,14 @@ class CategoryController extends Controller
     {
         $category = $this->categoryService->find($id);
         if ($category->articles_count > 0) {
-            return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, 'Không thể xóa. Có bài viết');
+            return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.categories.messages.delete_category_has_articles'));
         } else if ($category->categories_count > 0) {
-            return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, 'Không thể xóa. Có thể loại con');
+            return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.categories.messages.delete_category_has_subcategories'));
         }
         $isDeleted = $this->categoryService->delete($id);
         if ($isDeleted) {
-            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, 'Xóa thành công');
+            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, __('admin_label.pages.categories.messages.delete_category_successful'));
         }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, 'Xóa thất bại');
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.categories.messages.delete_category_successful'));
     }
 }

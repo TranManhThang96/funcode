@@ -27,11 +27,11 @@ $(document).ready(function () {
           type: 'DELETE',
           loading: true,
           success: function (response) {
-            toastr.success('Xóa series thành công!', 'Thông báo');
+            toastr.success(response.msg);
             getLists('/series/search');
           },
           error: function (jqXHR, textStatus, errorThrown) {
-            toastr.success('Xóa series thất bại!', 'Thông báo')
+            toastr.error(jqXHR.responseJSON.userMsg);
           }
         });
       }

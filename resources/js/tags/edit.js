@@ -29,7 +29,7 @@ $(document).ready(function () {
       data: $('#form-edit-tag').serialize(),
       success: function (response) {
         modalEditTag.modal('hide');
-        toastr.success('Update tag thành công!', 'Thông báo')
+        toastr.success(response.msg);
         $('#frm-search input[name="page"]').val(1);
         getLists('/tags/search');
       },
@@ -38,7 +38,8 @@ $(document).ready(function () {
           let errors = jqXHR.responseJSON.errors;
           setError(errors, '#form-edit-tag');
         } else {
-          toastr.error('Thêm tag thất bại!', 'Lỗi')
+          modalEditTag.modal('hide');
+          toastr.error(jqXHR.responseJSON.userMsg);
         }
       }
     });

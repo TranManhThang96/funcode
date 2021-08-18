@@ -89,11 +89,11 @@ class ArticleController extends Controller
         $articlesStatus = array_values($this->articlesStatus());
         $articlesType = array_values($this->articlesType());
         return view('admin.pages.articles.add', compact(
-            'categories',
-            'tags',
-            'series',
-            'articlesStatus',
-            'articlesType')
+                'categories',
+                'tags',
+                'series',
+                'articlesStatus',
+                'articlesType')
         );
     }
 
@@ -110,7 +110,7 @@ class ArticleController extends Controller
         // SLUG START
         // auto create slug by name.
         $slug = Str::slug($params['title'], '-');
-        $params['slug'] = $slug . '-'. date("YmdHis",time());
+        $params['slug'] = $slug . '-' . date("YmdHis", time());
         // SLUG END
 
         // TAG START
@@ -118,14 +118,19 @@ class ArticleController extends Controller
         $params['tags'] = $tags;
         // TAG END
 
-        $this->articleService->store($params);
-        return redirect()->route('admin.articles.index');
+        $articles = $this->articleService->store($params);
+        if ($articles) {
+            toastr()->success(__('admin_label.pages.articles.messages.add_articles_successful'));
+            return redirect()->route('admin.articles.index');
+        }
+        toastr()->error(__('admin_label.pages.articles.messages.add_articles_failure'));
+        return redirect()->back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -136,7 +141,7 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
@@ -150,12 +155,12 @@ class ArticleController extends Controller
         $articlesStatus = array_values($this->articlesStatus());
         $articlesType = array_values($this->articlesType());
         return view('admin.pages.articles.edit', compact(
-            'categories',
-            'tags',
-            'series',
-            'article',
-            'articlesStatus',
-            'articlesType')
+                'categories',
+                'tags',
+                'series',
+                'article',
+                'articlesStatus',
+                'articlesType')
         );
     }
 
@@ -163,7 +168,7 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      *
      * @param ArticleRequest $request
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(ArticleRequest $request, $id)
@@ -174,7 +179,7 @@ class ArticleController extends Controller
         // SLUG START
         // auto create slug by name.
         $slug = Str::slug($params['title'], '-');
-        $params['slug'] = $slug . '-'. date("YmdHis",time());
+        $params['slug'] = $slug . '-' . date("YmdHis", time());
         // SLUG END
 
         // TAG START
@@ -182,23 +187,28 @@ class ArticleController extends Controller
         $params['tags'] = $tags;
         // TAG END
 
-        $this->articleService->update($id, $params);
-        return redirect()->route('admin.articles.index');
+        $result = $this->articleService->update($id, $params);
+        if ($result) {
+            toastr()->success(__('admin_label.pages.articles.messages.update_articles_successful'));
+            return redirect()->route('admin.articles.index');
+        }
+        toastr()->error(__('admin_label.pages.articles.messages.update_articles_failure'));
+        return redirect()->back()->withInput();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $isDeleted = $this->articleService->delete($id);
         if ($isDeleted) {
-            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, 'kk');
+            return $this->apiSendSuccess($isDeleted, Response::HTTP_OK, __('admin_label.pages.articles.messages.delete_articles_successful'));
         }
-        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST);
+        return $this->apiSendError(null, Response::HTTP_BAD_REQUEST, __('admin_label.pages.articles.messages.delete_articles_failure'));
     }
 
     /**
