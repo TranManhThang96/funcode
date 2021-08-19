@@ -5,7 +5,7 @@ tinymce.init({
   visualchars fullscreen image link media template
   codesample table charmap hr pagebreak nonbreaking anchor
   toc insertdatetime advlist lists
-  wordcount imagetools textpattern noneditable help charmap quickbars emoticons`,
+  wordcount imagetools textpattern noneditable help charmap quickbars emoticons textpattern toc`,
   menu: {
     tc: {
       title: 'Comments',
@@ -17,6 +17,7 @@ tinymce.init({
   bold italic underline strikethrough |
   fontselect fontsizeselect formatselect |
   alignleft aligncenter alignright alignjustify |
+  toc |
   codesample image |
   outdent indent |
   numlist bullist checklist |
