@@ -47,6 +47,8 @@ class ArticleRequest extends FormRequest
                     'excerpt' => 'string|nullable',
                     'content' => 'required',
                     'image' => 'string|nullable',
+                    'type' => 'required|numeric',
+                    'status' => 'required|numeric'
                 ];
             case 'PUT':
                 return [
@@ -54,7 +56,9 @@ class ArticleRequest extends FormRequest
                     'category_id' => 'required|numeric',
                     'excerpt' => 'string|nullable',
                     'content' => 'required',
-                    'image' => 'string|nullable'
+                    'image' => 'string|nullable',
+                    'type' => 'required|numeric',
+                    'status' => 'required|numeric'
                 ];
             case 'PATCH':
             default:
@@ -78,7 +82,9 @@ class ArticleRequest extends FormRequest
                         'title.required' => 'Vui lòng tên bài viết.',
                         'title.unique' => 'Tên bài viết đã tồn tại.',
                         'category_id.required' => 'Vui lòng chọn danh mục.',
-                        'content.required' => 'Vui lòng nhập nội dung bài viết.'
+                        'content.required' => 'Vui lòng nhập nội dung bài viết.',
+                        'type.required' => 'Vui lòng chọn loại bài viết.',
+                        'status.required' => 'Vui lòng chọn trạng thái bài viết.'
                     ];
                 case 'PATCH':
                 default:

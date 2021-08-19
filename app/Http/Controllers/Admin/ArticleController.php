@@ -120,10 +120,14 @@ class ArticleController extends Controller
 
         $articles = $this->articleService->store($params);
         if ($articles) {
-            toastr()->success(__('admin_label.pages.articles.messages.add_articles_successful'));
+            toastr()->success(__('admin_label.pages.articles.messages.add_articles_successful'), '', [
+                'positionClass' => 'toast-top-center',
+            ]);
             return redirect()->route('admin.articles.index');
         }
-        toastr()->error(__('admin_label.pages.articles.messages.add_articles_failure'));
+        toastr()->error(__('admin_label.pages.articles.messages.add_articles_failure'), '', [
+            'positionClass' => 'toast-top-center',
+        ]);
         return redirect()->back()->withInput();
     }
 
@@ -189,10 +193,14 @@ class ArticleController extends Controller
 
         $result = $this->articleService->update($id, $params);
         if ($result) {
-            toastr()->success(__('admin_label.pages.articles.messages.update_articles_successful'));
+            toastr()->success(__('admin_label.pages.articles.messages.update_articles_successful'), '', [
+                'positionClass' => 'toast-top-center',
+            ]);
             return redirect()->route('admin.articles.index');
         }
-        toastr()->error(__('admin_label.pages.articles.messages.update_articles_failure'));
+        toastr()->error(__('admin_label.pages.articles.messages.update_articles_failure'), '', [
+            'positionClass' => 'toast-top-center',
+        ]);
         return redirect()->back()->withInput();
     }
 

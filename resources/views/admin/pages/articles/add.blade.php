@@ -94,6 +94,7 @@
                                    for="status-{{$status['value']}}">{{$status['label']}}</label>
                         </div>
                     @endforeach
+                    <x-custom-error field="status"/>
                 </div>
 
                 <div class="form-group">
@@ -107,6 +108,7 @@
                             <label class="form-check-label" for="type-{{$type['value']}}">{{$type['label']}}</label>
                         </div>
                     @endforeach
+                    <x-custom-error field="type"/>
                 </div>
 
                 <div class="form-group">
