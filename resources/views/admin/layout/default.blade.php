@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -8,7 +8,6 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    <meta name="locale" content="{{ config('app.locale') }}"/>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon.png')}}"/>
     <title>@yield('title', 'Funcode')</title>
@@ -31,7 +30,7 @@
 
     @yield('css')
     <!-- App CSS -->
-    <link href="{{asset('css/app.css')}}" rel="stylesheet"/>
+    <link href="{{asset('css/admin/app.css')}}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -131,7 +130,7 @@
 <script src="{{asset('assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js')}}"></script>
 <script src="{{asset('dist/js/pages/chart/chart-page-init.js')}}"></script>
 <script src="{{asset('assets/libs/toastr/build/toastr.min.js')}}"></script>
-<script src="{{asset('js/app.js')}}"></script>
+<script src="{{asset('js/admin/app.js')}}"></script>
 @yield('script')
 </body>
 @toastr_render

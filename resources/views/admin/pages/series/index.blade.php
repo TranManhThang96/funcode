@@ -68,11 +68,11 @@
 @endsection
 
 @section('script')
-    <script type="text/javascript" src="{{asset('js/series/index.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/series/add.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/series/edit.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/series/index.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/series/add.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/series/edit.js')}}"></script>
 @endsection
 
 @section('css')
-    <link href="{{asset('css/series/index.css')}}" rel="stylesheet"/>
+    <link href="{{asset('css/admin/series/index.css')}}" rel="stylesheet"/>
 @endsection

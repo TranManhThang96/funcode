@@ -101,7 +101,7 @@ getLists = (url = 'search', successFunc = null, errorFunc = null) => {
   });
 };
 
-let locale = $('meta[name=locale]').attr('content');
+let locale = $('html')[0].lang;
 let titleConfirm = locale === 'vi' ? 'Thông báo' : 'Confirm';
 let bodyConfirm = locale === 'vi' ? 'Bạn có chắc chắn điều này?' : 'Are you sure?';
 

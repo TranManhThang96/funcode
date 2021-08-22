@@ -66,9 +66,9 @@
 @endsection
 
 @section('script')
-    <script type="text/javascript" src="{{asset('js/categories/index.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/categories/add.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/categories/edit.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/categories/index.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/categories/add.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/categories/edit.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/libs/select2/dist/js/select2.min.js')}}"></script>
 @endsection
 

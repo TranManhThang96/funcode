@@ -68,8 +68,8 @@
 @endsection
 
 @section('script')
-    <script type="text/javascript" src="{{asset('js/tags/index.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/tags/add.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/tags/edit.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/tags/index.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/tags/add.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/tags/edit.js')}}"></script>
 @endsection
 

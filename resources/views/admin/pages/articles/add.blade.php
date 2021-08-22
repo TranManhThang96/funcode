@@ -158,12 +158,12 @@
 @section('script')
     <script type="text/javascript" src="{{asset('assets/libs/select2/dist/js/select2.min.js')}}"></script>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-    <script type="text/javascript" src="{{asset('js/articles/add.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/articles/tinymce.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/articles/references.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/articles/add.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/articles/tinymce.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/articles/references.js')}}"></script>
 @endsection
 
 @section('css')
     <link type="text/css" href="{{asset('assets/libs/select2/dist/css/select2.min.css')}}" rel="stylesheet"/>
-    <link type="text/css" href="{{asset('css/articles/add.css')}}" rel="stylesheet"/>
+    <link type="text/css" href="{{asset('css/admin/articles/add.css')}}" rel="stylesheet"/>
 @endsection

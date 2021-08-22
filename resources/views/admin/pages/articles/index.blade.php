@@ -153,12 +153,12 @@
     <script type="text/javascript" src="{{asset('assets/libs/select2/dist/js/select2.min.js')}}"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script type="text/javascript" src="{{asset('js/articles/columns.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/articles/index.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/articles/columns.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/admin/articles/index.js')}}"></script>
 @endsection
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
     <link href="{{asset('assets/libs/select2/dist/css/select2.min.css')}}" rel="stylesheet"></link>
-    <link type="text/css" href="{{asset('css/articles/index.css')}}" rel="stylesheet"/>
+    <link type="text/css" href="{{asset('css/admin/articles/index.css')}}" rel="stylesheet"/>
 @endsection
