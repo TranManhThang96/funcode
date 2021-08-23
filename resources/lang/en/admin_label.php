@@ -22,6 +22,7 @@ return [
             'created_at' => 'Created at',
             'updated_at' => 'Updated at',
             'action' => 'Action',
+            'view' => 'View',
             'edit' => 'Edit',
             'delete' => 'Delete',
             'empty_data' => 'Empty data!',

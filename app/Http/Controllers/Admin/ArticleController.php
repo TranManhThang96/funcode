@@ -182,8 +182,8 @@ class ArticleController extends Controller
 
         // SLUG START
         // auto create slug by name.
-        $slug = Str::slug($params['title'], '-');
-        $params['slug'] = $slug . '-' . date("YmdHis", time());
+        // $slug = Str::slug($params['title'], '-');
+        // $params['slug'] = $slug . '-' . date("YmdHis", time());
         // SLUG END
 
         // TAG START

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use DateTime;
+use Illuminate\Support\Facades\Route;
 
 class Article extends Model
 {
@@ -78,5 +79,15 @@ class Article extends Model
         $date = trim($date);
         $date = DateTime::createFromFormat($format, $date);
         return $date->format('Y-m-d');
+    }
+
+    public function setContentAttribute($value)
+    {
+        $this->attributes['content'] = htmlspecialchars($value);
+    }
+
+    public function getContentAttribute($value): string
+    {
+        return auth('admin')->user() ? $value : htmlspecialchars_decode($value);
     }
 }

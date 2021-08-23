@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::domain(config('app.main_domain'))->group(function () {
-    return view('admin.pages.dashboard');
+Route::domain(config('app.main_domain'))->name('web.')->group(function () {
+    Route::get('', [\App\Http\Controllers\Web\HomeController::class, 'index'])->name('home');
+    Route::resource('/articles', ArticlesController::class);
 });
 
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'admin.auth']], function () {
