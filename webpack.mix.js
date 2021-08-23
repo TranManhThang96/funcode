@@ -41,3 +41,6 @@ mix.js('resources/js/admin/tags/add', 'public/js/admin/tags');
 mix.js('resources/js/admin/tags/edit', 'public/js/admin/tags');
 
 
+// ====== Web ======
+mix.sass('resources/sass/web/app.scss', 'public/css/web');
+// ===== END Web =====

@@ -67,6 +67,10 @@
             <td class="articles-updated-at-column {{in_array('articles-updated-at-column', session('articles_columns', [])) ? 'column-show' : 'column-hidden'}}">{{date('d/m/Y H:i:s', strtotime($article->updated_at))}}</td>
             <td>
                 <div class="flex d-flex">
+                    <a target="_blank" href="{{route('web.articles.show', ['article' => $article->slug])}}" type="button"
+                       class="btn btn-success btn-sm btn-edit-article mr-2">
+                        {{__('admin_label.common.table.view')}}
+                    </a>
                     <a href="{{route('admin.articles.edit', ['article' => $article->id])}}" type="button"
                        class="btn btn-cyan btn-sm btn-edit-article mr-2">
                         {{__('admin_label.common.table.edit')}}

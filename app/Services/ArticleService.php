@@ -55,4 +55,9 @@ class ArticleService extends BaseService
     {
         return $this->articleRepository->delete($id);
     }
+
+    public function findBySlug($slug)
+    {
+        return $this->articleRepository->findBySlug($slug);
+    }
 }

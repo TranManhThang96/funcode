@@ -22,6 +22,7 @@ return [
             'created_at' => 'Thời gian tạo',
             'updated_at' => 'Thời gian cập nhật',
             'action' => 'Thao tác',
+            'view' => 'Xem',
             'edit' => 'Sửa',
             'delete' => 'Xóa',
             'empty_data' => 'Không có dữ liệu!',

@@ -1,0 +1,143 @@
+@import "colors";
+
+/* ===== scrollbar track =====*/
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ===== end scrollbar track =====*/
+
+body {
+  font-family: Nunito, sans-serif;
+  font-size: 1rem;
+  color: rgb(29, 33, 41);
+  background-color: $background-color;
+  font-weight: 400;
+}
+
+#header {
+  .navbar-brand {
+    color: $title-color !important;
+  }
+
+  .nav-item {
+    color: $title-color !important;
+
+    a {
+      color: $text-color !important;
+
+      &:hover {
+        color: $hover-color !important;
+      }
+    }
+  }
+}
+
+#content-container {
+  min-height: 80vh;
+}
+
+#main-content {
+  color: $articles-color;
+
+  .mce-toc {
+    ul {
+      li {
+        list-style-type: none;
+      }
+    }
+  }
+}
+
+.pagination {
+  justify-content: center;
+  .page-item {
+    .page-link {
+      background-color: $text-color;
+      border-color: $text-color;
+      color: #222831;
+      &:hover {
+        color: $hover-color;
+      }
+    }
+
+    &.active {
+      .page-link {
+        color: $hover-color;
+      }
+    }
+  }
+}
+
+.articles-item {
+  background-color: #262626;
+  border-radius: 8px;
+  box-shadow: 0 8px 15px rgb(125 147 178 / 25%);
+  transition: all .3s;
+  padding: 12px;
+  position: relative;
+
+  .articles-item-link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .articles-item-content {
+    .articles-item-content-title {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      transition: .3s;
+      color: $title-color;
+
+      &:hover {
+        color: $hover-color;
+      }
+    }
+
+    .articles-item-content-preview {
+      margin: 0;
+      line-height: 1.5;
+      color: $text-color;
+    }
+  }
+}
+
+#footer {
+  text-align: center;
+  color: #bed0e9;
+  padding: 30px 0;
+  border-top: 2px solid #e5f0ff;
+
+  .link-gray {
+    color: $text-color;
+
+    &:hover {
+      color: $hover-color;
+      text-decoration: none;
+    }
+  }
+}
+

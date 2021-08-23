@@ -79,6 +79,14 @@ class ArticleRepository extends RepositoryAbstract implements ArticleRepositoryI
             ->find($id);
     }
 
+    public function findBySlug($slug)
+    {
+        return $this->model
+            ->with('tags')
+            ->where('slug', $slug)
+            ->first();
+    }
+
     public function create(array $attributes)
     {
         $articleCreated = $this->model->create($attributes);
