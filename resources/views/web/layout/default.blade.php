@@ -55,6 +55,7 @@
 <script src="{{asset('assets/extra-libs/sparkline/sparkline.js')}}"></script>
 <script src="{{asset('assets/libs/toastr/build/toastr.min.js')}}"></script>
 <script src="{{asset('assets/libs/prism/prism.js')}}"></script>
+<script src="{{asset('js/web/app.js')}}"></script>
 @yield('script')
 </body>
 @toastr_render

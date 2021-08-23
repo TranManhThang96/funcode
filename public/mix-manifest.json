@@ -14,6 +14,8 @@
     "/js/admin/tags/index.js": "/js/admin/tags/index.js",
     "/js/admin/tags/add.js": "/js/admin/tags/add.js",
     "/js/admin/tags/edit.js": "/js/admin/tags/edit.js",
+    "/js/web/app.js": "/js/web/app.js",
+    "/js/web/articles.js": "/js/web/articles.js",
     "/css/web/app.css": "/css/web/app.css",
     "/css/admin/series/index.css": "/css/admin/series/index.css",
     "/css/admin/articles/index.css": "/css/admin/articles/index.css",
